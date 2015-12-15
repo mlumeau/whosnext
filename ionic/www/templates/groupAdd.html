@@ -1,0 +1,25 @@
+<ion-view title="Create New Group">
+  <ion-content padding="true" class="has-header">
+    <form>
+      <ion-list>
+        <label class="item item-input">
+          <span class="input-label">Group Name</span>
+          <input type="text" placeholder="enter the group name..." ng-model="data.username">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">First run date</span>
+          <input type="month">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="password" placeholder="At least 6 characters" ng-model="data.password">
+        </label>
+      </ion-list>
+      <button class="button button-stable button-block" ng-click="signupEmail()">Done</button>
+
+    </form>
+  </ion-content>
+
+
+</ion-view>
+

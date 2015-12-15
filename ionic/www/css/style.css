@@ -1,0 +1,90 @@
+/* Empty. Add your own CSS if you like */
+
+button.ion-plus-circled::before {
+  font-size: 30px;
+}
+
+.download {
+  transform: rotate(15deg);
+  animation: rotate;
+  cursor: zoom-in;
+}
+
+.flip li
+{
+  display: inline-block;
+  height: 200px;
+  list-style: none;
+  width: 200px;
+}
+.flip img
+{
+  backface-visibility: hidden;
+  position: absolute;
+  transform: rotateY(180deg);
+  transition: transform .1s linear .5s;
+}
+.flip img:first-child
+{
+  transform: rotateY(0deg);
+}
+
+.transition img
+{
+  transform: rotateY(0deg);
+  transition: transform .1s linear .5s;
+  transform-style: preserve-3d;
+}
+.transition img:first-child
+{
+  transform: rotateY(180deg);
+}
+
+@keyframes cf4FadeInOut {
+  0% {
+    opacity:1;
+  }
+  17% {
+    opacity:1;
+  }
+  25% {
+    opacity:0;
+  }
+  92% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+#cf4a img:nth-of-type(1) {
+  animation-delay: 6s;
+}
+#cf4a img:nth-of-type(2) {
+  animation-delay: 4s;
+}
+#cf4a img:nth-of-type(3) {
+  animation-delay: 2s;
+}
+#cf4a img:nth-of-type(4) {
+  animation-delay: 0;
+}
+
+#cf4a {
+  position:relative;
+  height:281px;
+  width:450px;
+  margin:0 auto;
+}
+
+#cf4a img {
+  position:absolute;
+  left:0;
+  -webkit-transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -o-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+}
+
+
