@@ -7,18 +7,24 @@
           <input type="text" placeholder="enter username..." ng-model="data.username">
         </label>
         <label class="item item-input">
-          <span class="input-label">Email</span>
-          <input type="email" placeholder="you@domain.com" ng-model="data.email">
+          <span class="input-label">Birthday</span>
+          <input type="date" ng-model="data.birthDate">
         </label>
-        <label class="item item-input">
+<!--        <label class="item item-input">
           <span class="input-label">Password</span>
           <input type="password" placeholder="At least 6 characters" ng-model="data.password">
-        </label>
+        </label>-->
       </ion-list>
-      <button class="button button-stable button-block" ng-click="signupEmail()">Done</button>
+      <button class="button button-positive button-block" ng-click="Register()">Let's Go !</button>
 
     </form>
+
+    <a class="button button-calm" style="width: 100%" ng-click="loginFacebook()">
+      Facebook Login
+    </a>
   </ion-content>
+
+
 
 
 </ion-view>

@@ -21,7 +21,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       StatusBar.styleDefault();
     }
 
-    Parse.initialize("hHQWyosAWQaH5wjcIPcoHoP4UeqCil7BaqJR5Ptu", "dlDa3oUNIRES8rk4TLQPSGS85ezfuLsf75bL0lFa");
+    Parse.initialize("APPLICATION_ID", "JAVASCRIPT_KEY");
   });
 })
 

@@ -2,13 +2,13 @@ angular.module('starter').controller('LoginCtrl', function($scope, $state) {
 
   $scope.data = {};
 
-  $scope.signupEmail = function(){
+  $scope.Register = function(){
     // setup an abstract state for the tabs directive
     //Create a new user on Parse
     var user = new Parse.User();
     user.set("username", $scope.data.username);
-    user.set("password", $scope.data.password);
-    user.set("email", $scope.data.email);
+    user.set("birthDate", $scope.data.birthDate);
+    user.set("password", "motdepasse");
 
     // other fields can be set just like with Parse.Object
     user.set("somethingelse", "like this!");
