@@ -1,4 +1,4 @@
-angular.module('starter').controller('LoginCtrl', function($scope, $state) {
+angular.module('starter').controller('LoginCtrl', function($scope, $state, $cordovaFacebook) {
 
   $scope.data = {};
 
@@ -40,4 +40,63 @@ angular.module('starter').controller('LoginCtrl', function($scope, $state) {
     });
   };
 
+  $scope.loginFacebook = function(){
+
+    //Browser Login
+    if(!(ionic.Platform.isIOS() || ionic.Platform.isAndroid())){
+
+      Parse.FacebookUtils.logIn(null, {
+        success: function(user) {
+          console.log(user);
+          if (!user.existed()) {
+            alert("User signed up and logged in through Facebook!");
+          } else {
+            alert("User logged in through Facebook!");
+          }
+        },
+        error: function(user, error) {
+          alert("User cancelled the Facebook login or did not fully authorize.");
+        }
+      });
+
+    }
+    //Native Login
+    else {
+
+      $cordovaFacebook.login(["public_profile", "email"]).then(function(success){
+
+        console.log(success);
+
+        //Need to convert expiresIn format from FB to date
+        var expiration_date = new Date();
+        expiration_date.setSeconds(expiration_date.getSeconds() + success.authResponse.expiresIn);
+        expiration_date = expiration_date.toISOString();
+
+        var facebookAuthData = {
+          "id": success.authResponse.userID,
+          "access_token": success.authResponse.accessToken,
+          "expiration_date": expiration_date
+        };
+
+        Parse.FacebookUtils.logIn(facebookAuthData, {
+          success: function(user) {
+            console.log(user);
+            if (!user.existed()) {
+              alert("User signed up and logged in through Facebook!");
+            } else {
+              alert("User logged in through Facebook!");
+            }
+          },
+          error: function(user, error) {
+            alert("User cancelled the Facebook login or did not fully authorize.");
+          }
+        });
+
+      }, function(error){
+        console.log(error);
+      });
+
+    }
+
+  };
 });
