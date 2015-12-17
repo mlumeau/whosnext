@@ -15,6 +15,8 @@
 		5608361E1C20376000D6E017 /* Who_s_NextTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5608361D1C20376000D6E017 /* Who_s_NextTests.m */; };
 		560836291C20376000D6E017 /* Who_s_NextUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 560836281C20376000D6E017 /* Who_s_NextUITests.m */; };
 		5608363B1C2038A500D6E017 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5608363A1C2038A500D6E017 /* LoginController.m */; };
+		56D576C91C2309F6003DEE70 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D576C81C2309F6003DEE70 /* User.m */; };
+		56D576CE1C230C17003DEE70 /* WhosNextApiStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D576CD1C230C17003DEE70 /* WhosNextApiStore.m */; };
 		5BEA2E0DF30248B5023E9607 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E4AA392840CFEE980F4C7A7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +54,11 @@
 		5608362A1C20376000D6E017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		560836391C2038A500D6E017 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginController.h; path = classes/LoginController.h; sourceTree = "<group>"; };
 		5608363A1C2038A500D6E017 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginController.m; path = classes/LoginController.m; sourceTree = "<group>"; };
+		56D576C71C2309F6003DEE70 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = classes/User.h; sourceTree = "<group>"; };
+		56D576C81C2309F6003DEE70 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = classes/User.m; sourceTree = "<group>"; };
+		56D576CC1C230C17003DEE70 /* WhosNextApiStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WhosNextApiStore.h; path = classes/WhosNextApiStore.h; sourceTree = "<group>"; };
+		56D576CD1C230C17003DEE70 /* WhosNextApiStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WhosNextApiStore.m; path = classes/WhosNextApiStore.m; sourceTree = "<group>"; };
+		56D576D11C230CAA003DEE70 /* SingletonClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SingletonClass.h; path = classes/SingletonClass.h; sourceTree = "<group>"; };
 		6E4AA392840CFEE980F4C7A7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B3FDDE6272B934C5F820C53 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		BD2C643CAA71C0CA9D37FFF7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -109,6 +116,7 @@
 		560836021C20376000D6E017 /* Who's Next */ = {
 			isa = PBXGroup;
 			children = (
+				56D576C21C230791003DEE70 /* Model */,
 				560836361C2037D300D6E017 /* Screen */,
 				560836061C20376000D6E017 /* AppDelegate.h */,
 				560836071C20376000D6E017 /* AppDelegate.m */,
@@ -170,6 +178,82 @@
 				5608363A1C2038A500D6E017 /* LoginController.m */,
 			);
 			name = "Login Controller";
+			sourceTree = "<group>";
+		};
+		56D576C21C230791003DEE70 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				56D576CF1C230C45003DEE70 /* Misc */,
+				56D576C31C230798003DEE70 /* Domain */,
+				56D576C41C2307A3003DEE70 /* Managers */,
+				56D576C51C2307AC003DEE70 /* Stores */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		56D576C31C230798003DEE70 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				56D576C61C2307C3003DEE70 /* User */,
+			);
+			name = Domain;
+			sourceTree = "<group>";
+		};
+		56D576C41C2307A3003DEE70 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				56D576CA1C230BCF003DEE70 /* Group Manager */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		56D576C51C2307AC003DEE70 /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				56D576CB1C230BE4003DEE70 /* Whos Next Api Store */,
+			);
+			name = Stores;
+			sourceTree = "<group>";
+		};
+		56D576C61C2307C3003DEE70 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				56D576C71C2309F6003DEE70 /* User.h */,
+				56D576C81C2309F6003DEE70 /* User.m */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
+		56D576CA1C230BCF003DEE70 /* Group Manager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Group Manager";
+			sourceTree = "<group>";
+		};
+		56D576CB1C230BE4003DEE70 /* Whos Next Api Store */ = {
+			isa = PBXGroup;
+			children = (
+				56D576CC1C230C17003DEE70 /* WhosNextApiStore.h */,
+				56D576CD1C230C17003DEE70 /* WhosNextApiStore.m */,
+			);
+			name = "Whos Next Api Store";
+			sourceTree = "<group>";
+		};
+		56D576CF1C230C45003DEE70 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				56D576D01C230C50003DEE70 /* Macro */,
+			);
+			name = Misc;
+			sourceTree = "<group>";
+		};
+		56D576D01C230C50003DEE70 /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+				56D576D11C230CAA003DEE70 /* SingletonClass.h */,
+			);
+			name = Macro;
 			sourceTree = "<group>";
 		};
 		5D0BA6A7B698C4B9B688B69C /* Pods */ = {
@@ -370,6 +454,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56D576CE1C230C17003DEE70 /* WhosNextApiStore.m in Sources */,
+				56D576C91C2309F6003DEE70 /* User.m in Sources */,
 				560836081C20376000D6E017 /* AppDelegate.m in Sources */,
 				560836051C20376000D6E017 /* main.m in Sources */,
 				5608363B1C2038A500D6E017 /* LoginController.m in Sources */,
