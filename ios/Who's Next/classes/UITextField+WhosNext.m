@@ -23,6 +23,7 @@
     self.textAlignment         = NSTextAlignmentCenter;
     self.keyboardAppearance    = UIKeyboardAppearanceDark;
     self.font                  = [UIFont fontWithName:@"AvenirNext-UltraLight" size:20.0f];
+    self.returnKeyType         = UIReturnKeyDone;
     self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:@{NSForegroundColorAttributeName: [UIColor whosNextWhiteColor]}];
 }
 
