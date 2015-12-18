@@ -1,7 +1,6 @@
 
 # == iOS ==
 *.xcuserdatad
-*.xcworkspacedata
 *.xcsheme
 xcshememanagement.plist
 
