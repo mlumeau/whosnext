@@ -15,6 +15,8 @@
 		5608361E1C20376000D6E017 /* Who_s_NextTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5608361D1C20376000D6E017 /* Who_s_NextTests.m */; };
 		560836291C20376000D6E017 /* Who_s_NextUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 560836281C20376000D6E017 /* Who_s_NextUITests.m */; };
 		5608363B1C2038A500D6E017 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5608363A1C2038A500D6E017 /* LoginController.m */; };
+		5695D0CC1C234F32003C3844 /* UIColor+WhosNext.m in Sources */ = {isa = PBXBuildFile; fileRef = 5695D0CB1C234F32003C3844 /* UIColor+WhosNext.m */; };
+		5695D0D11C235178003C3844 /* UITextField+WhosNext.m in Sources */ = {isa = PBXBuildFile; fileRef = 5695D0D01C235178003C3844 /* UITextField+WhosNext.m */; };
 		56D576C91C2309F6003DEE70 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D576C81C2309F6003DEE70 /* User.m */; };
 		56D576CE1C230C17003DEE70 /* WhosNextApiStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D576CD1C230C17003DEE70 /* WhosNextApiStore.m */; };
 		5BEA2E0DF30248B5023E9607 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E4AA392840CFEE980F4C7A7 /* libPods.a */; };
@@ -54,6 +56,10 @@
 		5608362A1C20376000D6E017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		560836391C2038A500D6E017 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginController.h; path = classes/LoginController.h; sourceTree = "<group>"; };
 		5608363A1C2038A500D6E017 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginController.m; path = classes/LoginController.m; sourceTree = "<group>"; };
+		5695D0CA1C234F32003C3844 /* UIColor+WhosNext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+WhosNext.h"; path = "classes/UIColor+WhosNext.h"; sourceTree = "<group>"; };
+		5695D0CB1C234F32003C3844 /* UIColor+WhosNext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+WhosNext.m"; path = "classes/UIColor+WhosNext.m"; sourceTree = "<group>"; };
+		5695D0CF1C235178003C3844 /* UITextField+WhosNext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITextField+WhosNext.h"; path = "classes/UITextField+WhosNext.h"; sourceTree = "<group>"; };
+		5695D0D01C235178003C3844 /* UITextField+WhosNext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextField+WhosNext.m"; path = "classes/UITextField+WhosNext.m"; sourceTree = "<group>"; };
 		56D576C71C2309F6003DEE70 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = classes/User.h; sourceTree = "<group>"; };
 		56D576C81C2309F6003DEE70 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = classes/User.m; sourceTree = "<group>"; };
 		56D576CC1C230C17003DEE70 /* WhosNextApiStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WhosNextApiStore.h; path = classes/WhosNextApiStore.h; sourceTree = "<group>"; };
@@ -156,6 +162,7 @@
 		560836361C2037D300D6E017 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				5695D0C51C234D6A003C3844 /* Misc */,
 				560836381C2037E500D6E017 /* Login Controller */,
 				560836371C2037D900D6E017 /* Storyboards */,
 			);
@@ -178,6 +185,41 @@
 				5608363A1C2038A500D6E017 /* LoginController.m */,
 			);
 			name = "Login Controller";
+			sourceTree = "<group>";
+		};
+		5695D0C51C234D6A003C3844 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				5695D0C61C234D6F003C3844 /* Design */,
+			);
+			name = Misc;
+			sourceTree = "<group>";
+		};
+		5695D0C61C234D6F003C3844 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				5695D0CE1C235153003C3844 /* text field */,
+				5695D0CD1C23514B003C3844 /* Color */,
+			);
+			name = Design;
+			sourceTree = "<group>";
+		};
+		5695D0CD1C23514B003C3844 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				5695D0CA1C234F32003C3844 /* UIColor+WhosNext.h */,
+				5695D0CB1C234F32003C3844 /* UIColor+WhosNext.m */,
+			);
+			name = Color;
+			sourceTree = "<group>";
+		};
+		5695D0CE1C235153003C3844 /* text field */ = {
+			isa = PBXGroup;
+			children = (
+				5695D0CF1C235178003C3844 /* UITextField+WhosNext.h */,
+				5695D0D01C235178003C3844 /* UITextField+WhosNext.m */,
+			);
+			name = "text field";
 			sourceTree = "<group>";
 		};
 		56D576C21C230791003DEE70 /* Model */ = {
@@ -455,6 +497,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				56D576CE1C230C17003DEE70 /* WhosNextApiStore.m in Sources */,
+				5695D0D11C235178003C3844 /* UITextField+WhosNext.m in Sources */,
+				5695D0CC1C234F32003C3844 /* UIColor+WhosNext.m in Sources */,
 				56D576C91C2309F6003DEE70 /* User.m in Sources */,
 				560836081C20376000D6E017 /* AppDelegate.m in Sources */,
 				560836051C20376000D6E017 /* main.m in Sources */,
