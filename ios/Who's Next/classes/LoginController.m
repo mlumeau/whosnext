@@ -19,6 +19,7 @@
 @property (nonatomic, weak) IBOutlet UIScrollView *scrollViewContent;
 @property (nonatomic, weak) IBOutlet UITextField *textFieldName;
 @property (nonatomic, weak) IBOutlet UITextField *textFieldBirthDate;
+
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 @property (nonatomic, assign) CGPoint scrollViewContentOffsetOrigin;
 @property (nonatomic, assign) BOOL keyboadHasAlreadyDisplayed;
@@ -124,8 +125,9 @@
     CGFloat textFieldLevel  = self.textFieldBirthDate.frame.origin.y + self.textFieldBirthDate.frame.size.height;
     
     if (keyboardLevel < textFieldLevel) {
-        CGFloat offset = 20.0f; // Offset for correction frame
-        self.scrollViewContent.contentOffset = CGPointMake(self.scrollViewContent.contentOffset.x, self.scrollViewContent.contentOffset.y + ( textFieldLevel - keyboardLevel + offset ));
+        CGFloat offset  = 20.0f; // Offset for correction frame
+        CGFloat yOffset = self.scrollViewContent.contentOffset.y + ( textFieldLevel - keyboardLevel + offset );
+        self.scrollViewContent.contentOffset = CGPointMake(self.scrollViewContent.contentOffset.x, yOffset);
     }
 }
 
