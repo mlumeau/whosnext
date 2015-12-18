@@ -21,6 +21,7 @@
 @property (nonatomic, weak) IBOutlet UITextField *textFieldBirthDate;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 @property (nonatomic, assign) CGPoint scrollViewContentOffsetOrigin;
+@property (nonatomic, assign) BOOL keyboadHasAlreadyDisplayed;
 
 @end
 
@@ -37,6 +38,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        self.keyboadHasAlreadyDisplayed = NO;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
     }
@@ -79,6 +81,11 @@
 #pragma mark UIKeyboardDidShowNotification implementation
 
 - (void)keyboardWillShowNotification:(NSNotification *)notification {
+    if (self.keyboadHasAlreadyDisplayed) {
+        return;
+    }
+    
+    self.keyboadHasAlreadyDisplayed    = YES;
     self.scrollViewContentOffsetOrigin = self.scrollViewContent.contentOffset;
     CGFloat keyboardHeight             = [[notification.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
     
@@ -86,6 +93,7 @@
 }
 
 - (void)keyboardWillHideNotification:(NSNotification *)notification {
+    self.keyboadHasAlreadyDisplayed      = NO;
     self.scrollViewContent.contentOffset = self.scrollViewContentOffsetOrigin;
 }
 
