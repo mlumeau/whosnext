@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,8 +36,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private View mProgressView;
     private View mLoginFormView;
 
-    private  Calendar myCalendar = Calendar.getInstance();
+    private Calendar myCalendar = Calendar.getInstance();
     private GoogleApiClient mGoogleApiClient;
+    private GoogleSignInOptions gso;
 
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -44,6 +46,33 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // Build a GoogleApiClient with access to the Google Sign-In API and the
+        // options specified by gso.
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* Activity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+        boolean isSignedIn = getPreferences(Context.MODE_PRIVATE).getBoolean(getString(R.string.signed_in_key),false);
+
+        if(isSignedIn){
+            signIn();
+        }
+        else{
+            initUI();
+        }
+    }
+
+    private void initUI(){
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mUsernameView = (EditText) findViewById(R.id.username);
@@ -55,7 +84,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -67,7 +95,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         mBirthdateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(LoginActivity.this, date, myCalendar
+                new DatePickerDialog(LoginActivity.this,R.style.DialogTheme, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH))
 
                         .show();
@@ -76,19 +104,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-
-        // Build a GoogleApiClient with access to the Google Sign-In API and the
-        // options specified by gso.
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* Activity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
 
         // Customize sign-in button. The sign-in button can be displayed in
         // multiple sizes and color schemes. It can also be contextually
@@ -177,6 +192,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
+
+            getPreferences(MODE_PRIVATE).edit().putBoolean(getString(R.string.signed_in_key),true).commit();
             updateUI(true);
         } else {
             // Signed out, show unauthenticated UI.
@@ -187,5 +204,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private void updateUI(boolean isSignedIn){
         //TODO
     }
+
 }
 
