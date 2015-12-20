@@ -29,11 +29,11 @@ public class ParseServiceTest extends ActivityInstrumentationTestCase2<LoginActi
     public void testGetUser() throws InterruptedException {
         final CountDownLatch signal = new CountDownLatch(1);
 
-        dbService.getUser("8wXBSF8EJH", new ServiceCallback<User>() {
+        dbService.getUser("buqPgzIGBL", new ServiceCallback<User>() {
             @Override
-            public void doWithResult(User result) {
-                Log.e("PARSE", "GOT A USER: " + result.getId() + ", " + result.getUsername());
-                assertNotNull(result);
+            public void doWithResult(User user) {
+                Log.e("PARSE", "GOT A USER: [" + user.getId() + ", " + user.getUsername() + "]");
+                assertNotNull(user);
                 signal.countDown();
             }
 
@@ -51,11 +51,11 @@ public class ParseServiceTest extends ActivityInstrumentationTestCase2<LoginActi
 
         final CountDownLatch signal = new CountDownLatch(1);
 
-        dbService.getGroup("lrZHyhSyi5", new ServiceCallback<Group>() {
+        dbService.getGroup("qSE7ikCKbH", new ServiceCallback<Group>() {
             @Override
-            public void doWithResult(Group result) {
-                Log.e("PARSE", "GOT A GROUP: " + result.getId() + ", " + result.getName());
-                assertNotNull(result);
+            public void doWithResult(Group group) {
+                Log.e("PARSE", "GOT A GROUP: [" + group.getId() + ", " + group.getName() + "]");
+                assertNotNull(group);
                 signal.countDown();
             }
 
@@ -66,6 +66,80 @@ public class ParseServiceTest extends ActivityInstrumentationTestCase2<LoginActi
                 signal.countDown();
             }
         });
+        signal.await();
+    }
+
+    public void testGetGroupUsers() throws InterruptedException {
+        final CountDownLatch signal = new CountDownLatch(1);
+        dbService.getGroup("qSE7ikCKbH", new ServiceCallback<Group>() {
+            @Override
+            public void doWithResult(final Group group) {
+                Log.e("PARSE", "GOT A GROUP: [" + group.getId() + ", " + group.getName() + "]");
+
+                group.fetchUsers(new ServiceCallback<Group>() {
+                    @Override
+                    public void doWithResult(Group group) {
+                        for (User u : group.getUsers()) {
+                            Log.e("PARSE", "GROUP [" + group.getId() + ", " + group.getName() + "] - GOT A USER: [" + u.getId() + ", " + u.getUsername() + "]");
+                        }
+                        assertFalse(group.getUsers().isEmpty());
+                        signal.countDown();
+                    }
+
+                    @Override
+                    public void failed() {
+                        Log.e("PARSE", "GOT NOTHING");
+                        assertNotNull(null);
+                        signal.countDown();
+                    }
+                });
+            }
+
+            @Override
+            public void failed() {
+                Log.e("PARSE", "GOT NOTHING");
+                assertNotNull(null);
+                signal.countDown();
+            }
+        });
+
+        signal.await();
+    }
+
+    public void testGetUserGroups() throws InterruptedException {
+        final CountDownLatch signal = new CountDownLatch(1);
+        dbService.getUser("buqPgzIGBL", new ServiceCallback<User>() {
+            @Override
+            public void doWithResult(final User user) {
+                Log.e("PARSE", "GOT A USER: [" + user.getId() + ", " + user.getUsername() + "]");
+
+                user.fetchGroups(new ServiceCallback<User>() {
+                    @Override
+                    public void doWithResult(User user) {
+                        for (Group g : user.getGroups()) {
+                            Log.e("PARSE", "USER [" + user.getId() + ", " + user.getUsername() + "] - GOT A GROUP: [" + g.getId() + ", " + g.getName() + "]");
+                        }
+                        assertFalse(user.getGroups().isEmpty());
+                        signal.countDown();
+                    }
+
+                    @Override
+                    public void failed() {
+                        Log.e("PARSE", "GOT NOTHING");
+                        assertNotNull(null);
+                        signal.countDown();
+                    }
+                });
+            }
+
+            @Override
+            public void failed() {
+                Log.e("PARSE", "GOT NOTHING");
+                assertNotNull(null);
+                signal.countDown();
+            }
+        });
+
         signal.await();
     }
 
