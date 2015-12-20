@@ -202,7 +202,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void updateUI(boolean isSignedIn){
-        //TODO
+        if(isSignedIn){
+            startActivity(new Intent(this,GroupListActivity.class));
+            finish();
+        }
     }
 
 }
