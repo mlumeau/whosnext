@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" id="KGk-i7-Jjw" customClass="CustomCellTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="848" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="848" height="99.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook" translatesAutoresizingMaskIntoConstraints="NO" id="L27-tt-t1G">
+                        <rect key="frame" x="28" y="25" width="50" height="50"/>
+                        <color key="backgroundColor" red="0.01176470588" green="0.66274509800000003" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="JAN-VM-WL7"/>
+                            <constraint firstAttribute="height" constant="50" id="i5Y-WJ-4A6"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="25"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sTY-c4-Bzz">
+                        <rect key="frame" x="128" y="40" width="36.5" height="20.5"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="L27-tt-t1G" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="Bcu-EL-ik2"/>
+                    <constraint firstItem="L27-tt-t1G" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Vpk-Vh-e8u"/>
+                    <constraint firstItem="sTY-c4-Bzz" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="dqR-VH-bwJ"/>
+                    <constraint firstItem="sTY-c4-Bzz" firstAttribute="leading" secondItem="L27-tt-t1G" secondAttribute="trailing" constant="50" id="yBi-1a-ky8"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="tintColor" red="0.01176470588" green="0.66274509800000003" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+            <connections>
+                <outlet property="image" destination="L27-tt-t1G" id="F5d-Cw-Q0y"/>
+                <outlet property="title" destination="sTY-c4-Bzz" id="8dZ-tW-uTr"/>
+            </connections>
+            <point key="canvasLocation" x="439" y="353"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="facebook" width="58" height="58"/>
+    </resources>
+</document>

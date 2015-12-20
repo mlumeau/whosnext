@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F1352CB1C2736780044435C /* ViewGroupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1352CA1C2736780044435C /* ViewGroupController.m */; };
+		2F1352D11C2736A20044435C /* CustomCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1352CF1C2736A20044435C /* CustomCellTableViewCell.m */; };
+		2F1352D21C2736A20044435C /* CustomCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F1352D01C2736A20044435C /* CustomCellTableViewCell.xib */; };
 		560836051C20376000D6E017 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 560836041C20376000D6E017 /* main.m */; };
 		560836081C20376000D6E017 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 560836071C20376000D6E017 /* AppDelegate.m */; };
 		5608360E1C20376000D6E017 /* WhosNext.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5608360C1C20376000D6E017 /* WhosNext.storyboard */; };
@@ -40,6 +43,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2F1352C91C2736780044435C /* ViewGroupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewGroupController.h; path = "../../../WhoseNextIosJulien/Who's Next/classes/ViewGroupController.h"; sourceTree = "<group>"; };
+		2F1352CA1C2736780044435C /* ViewGroupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewGroupController.m; path = "../../../WhoseNextIosJulien/Who's Next/classes/ViewGroupController.m"; sourceTree = "<group>"; };
+		2F1352CE1C2736A20044435C /* CustomCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomCellTableViewCell.h; path = classes/CustomCellTableViewCell.h; sourceTree = "<group>"; };
+		2F1352CF1C2736A20044435C /* CustomCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomCellTableViewCell.m; path = classes/CustomCellTableViewCell.m; sourceTree = "<group>"; };
+		2F1352D01C2736A20044435C /* CustomCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CustomCellTableViewCell.xib; path = classes/CustomCellTableViewCell.xib; sourceTree = "<group>"; };
 		560836001C20376000D6E017 /* Who's Next.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Who's Next.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		560836041C20376000D6E017 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		560836061C20376000D6E017 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -96,6 +104,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F1352C81C2736550044435C /* ViewGroup Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2F1352CC1C2736870044435C /* CustomCell */,
+				2F1352C91C2736780044435C /* ViewGroupController.h */,
+				2F1352CA1C2736780044435C /* ViewGroupController.m */,
+			);
+			name = "ViewGroup Controller";
+			sourceTree = "<group>";
+		};
+		2F1352CC1C2736870044435C /* CustomCell */ = {
+			isa = PBXGroup;
+			children = (
+				2F1352CE1C2736A20044435C /* CustomCellTableViewCell.h */,
+				2F1352CF1C2736A20044435C /* CustomCellTableViewCell.m */,
+				2F1352D01C2736A20044435C /* CustomCellTableViewCell.xib */,
+			);
+			name = CustomCell;
+			sourceTree = "<group>";
+		};
 		560835F71C20376000D6E017 = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +190,7 @@
 		560836361C2037D300D6E017 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				2F1352C81C2736550044435C /* ViewGroup Controller */,
 				5695D0C51C234D6A003C3844 /* Misc */,
 				560836381C2037E500D6E017 /* Login Controller */,
 				560836371C2037D900D6E017 /* Storyboards */,
@@ -423,6 +452,7 @@
 			files = (
 				560836131C20376000D6E017 /* LaunchScreen.storyboard in Resources */,
 				560836101C20376000D6E017 /* Assets.xcassets in Resources */,
+				2F1352D21C2736A20044435C /* CustomCellTableViewCell.xib in Resources */,
 				5608360E1C20376000D6E017 /* WhosNext.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -498,8 +528,10 @@
 			files = (
 				56D576CE1C230C17003DEE70 /* WhosNextApiStore.m in Sources */,
 				5695D0D11C235178003C3844 /* UITextField+WhosNext.m in Sources */,
+				2F1352D11C2736A20044435C /* CustomCellTableViewCell.m in Sources */,
 				5695D0CC1C234F32003C3844 /* UIColor+WhosNext.m in Sources */,
 				56D576C91C2309F6003DEE70 /* User.m in Sources */,
+				2F1352CB1C2736780044435C /* ViewGroupController.m in Sources */,
 				560836081C20376000D6E017 /* AppDelegate.m in Sources */,
 				560836051C20376000D6E017 /* main.m in Sources */,
 				5608363B1C2038A500D6E017 /* LoginController.m in Sources */,

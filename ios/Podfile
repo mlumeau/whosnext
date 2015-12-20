@@ -1,3 +1,5 @@
 platform :ios, '8.0'
 
 pod 'Parse', '~> 1.11'
+pod 'MGSwipeTableCell'
+
