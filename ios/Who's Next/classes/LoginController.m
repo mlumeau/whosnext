@@ -13,16 +13,15 @@
 
 #pragma mark - Login Controller: Private interface
 
-@interface LoginController () <UITextFieldDelegate>
+@interface LoginController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
 
-// View
-@property (nonatomic, weak) IBOutlet UIScrollView *scrollViewContent;
+@property (nonatomic, weak) IBOutlet UIButton *buttonPicture;
 @property (nonatomic, weak) IBOutlet UITextField *textFieldName;
 @property (nonatomic, weak) IBOutlet UITextField *textFieldBirthDate;
+@property (nonatomic, weak) IBOutlet UIScrollView *scrollView;
+@property(nonatomic, strong) UIGestureRecognizer *tapper;
+@property(nonatomic, assign) BOOL hasScroll;
 
-@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
-@property (nonatomic, assign) CGPoint scrollViewContentOffsetOrigin;
-@property (nonatomic, assign) BOOL keyboadHasAlreadyDisplayed;
 
 @end
 
@@ -36,21 +35,18 @@
 
 #pragma mark Life cycle
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        self.keyboadHasAlreadyDisplayed = NO;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
-    }
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initializeTextFieldName];
     [self initializeTextFieldBirthDate];
-    [self initializeScrollViewGesture];
+    
+    self.tapper = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+    self.tapper.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:self.tapper];
+    
+    self.hasScroll = false;
+    [self registerForKeyboardNotifications];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -58,47 +54,77 @@
     [self handleConstraintsFor4s];
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    [self.scrollViewContent removeGestureRecognizer:self.tapGestureRecognizer];
+
+-(void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
-
-
-#pragma mark Handle user event
-
-- (void)touchesBeganOnScrollView {
-    if (self.textFieldBirthDate.isFirstResponder) {
-        [self.textFieldBirthDate resignFirstResponder];
-    }
-    if (self.textFieldName.isFirstResponder) {
-        [self.textFieldName resignFirstResponder];
-    }
+-(void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
-
-
-#pragma mark UIKeyboardDidShowNotification implementation
-
-- (void)keyboardWillShowNotification:(NSNotification *)notification {
-    if (self.keyboadHasAlreadyDisplayed) {
-        return;
-    }
+- (void)dealloc
+{
+    // unregister for keyboard notifications
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
     
-    self.keyboadHasAlreadyDisplayed    = YES;
-    self.scrollViewContentOffsetOrigin = self.scrollViewContent.contentOffset;
-    CGFloat keyboardHeight             = [[notification.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
     
-    [self handleTextFieldAccordingToKeyboardHeight:keyboardHeight];
+    [self.view removeGestureRecognizer:self.tapper];
+    
 }
 
-- (void)keyboardWillHideNotification:(NSNotification *)notification {
-    self.keyboadHasAlreadyDisplayed      = NO;
-    self.scrollViewContent.contentOffset = self.scrollViewContentOffsetOrigin;
+#pragma mark ViewContoller : Handle the keyboard notifications
+
+// Call this method somewhere in your view controller setup code.
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+
+    CGRect aRect = [UIScreen mainScreen].bounds;
+    CGFloat kbLevel = aRect.size.height - kbSize.height;
+    CGFloat textFieldBirthDateYLevel= self.textFieldBirthDate.frame.size.height + self.textFieldBirthDate.frame.origin.y;
+    
+    if (kbLevel < textFieldBirthDateYLevel) {
+        self.scrollView.contentInset = contentInsets;
+        self.scrollView.scrollIndicatorInsets = contentInsets;
+        [self.scrollView scrollRectToVisible:self.textFieldBirthDate.frame animated:YES];
+        self.hasScroll = true;
+    }
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    if(self.hasScroll){
+        UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+        self.scrollView.contentInset = contentInsets;
+        self.scrollView.scrollIndicatorInsets = contentInsets;
+    }
 }
 
 
+#pragma mark ViewController : Handle Gesture
+
+- (void)handleSingleTap:(UITapGestureRecognizer *) sender
+{
+    [self.view endEditing:YES];
+}
 
 #pragma mark Private API: Initialize components
 
@@ -107,28 +133,84 @@
 }
 
 - (void)initializeTextFieldBirthDate {
-    [self.textFieldBirthDate applyWhosNextStyleWithPlaceholder:@"Your birth date..."];
+    [self.textFieldBirthDate applyWhosNextStyleWithPlaceholder:@"Your birthdate..."];
 }
 
-- (void)initializeScrollViewGesture {
-    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchesBeganOnScrollView)];
-    [self.scrollViewContent addGestureRecognizer:self.tapGestureRecognizer];
-}
+#pragma mark ViewController: Manage Pictures Picker
 
-
-
-#pragma mark Private API: Handle text field according to keayboard
-
-- (void)handleTextFieldAccordingToKeyboardHeight:(CGFloat)keyboardHeight {
-    CGRect applicationFrame = [UIScreen mainScreen].bounds;
-    CGFloat keyboardLevel   = applicationFrame.size.height - keyboardHeight;
-    CGFloat textFieldLevel  = self.textFieldBirthDate.frame.origin.y + self.textFieldBirthDate.frame.size.height;
+- (IBAction)takeOrSelectPhotoOnButtonClick:(UIButton *)sender {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Information" message:@"Choose the way to select your picture"
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
     
-    if (keyboardLevel < textFieldLevel) {
-        CGFloat offset  = 20.0f; // Offset for correction frame
-        CGFloat yOffset = self.scrollViewContent.contentOffset.y + ( textFieldLevel - keyboardLevel + offset );
-        self.scrollViewContent.contentOffset = CGPointMake(self.scrollViewContent.contentOffset.x, yOffset);
+    UIAlertAction* takePhoto = [UIAlertAction
+                                actionWithTitle:@"Take a picture"
+                                style:UIAlertActionStyleDefault
+                                handler:^(UIAlertAction * action)
+                                {
+                                    [self takePhoto];
+                                    
+                                }];
+    UIAlertAction* selectPhoto = [UIAlertAction
+                                  actionWithTitle:@"Select Picture from your library"
+                                  style:UIAlertActionStyleDefault
+                                  handler:^(UIAlertAction * action)
+                                  {
+                                      [self selectPhoto];
+                                  }];
+    
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"Cancel"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [self dismissViewControllerAnimated:true completion:^{
+                                     
+                                 }];
+                             }];
+    
+    
+    [alert addAction:takePhoto];
+    [alert addAction:selectPhoto];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
+
+- (void)takePhoto {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate                 = self;
+    picker.allowsEditing            = NO;
+    picker.sourceType               = UIImagePickerControllerSourceTypeCamera;
+    
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
+- (void)selectPhoto {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = NO;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
+
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [self.buttonPicture setBackgroundImage:info[UIImagePickerControllerOriginalImage] forState:UIControlStateNormal];
+    
+    
+    if(picker.sourceType == UIImagePickerControllerSourceTypeCamera){
+        UIImageWriteToSavedPhotosAlbum(info[UIImagePickerControllerOriginalImage] , nil, nil, nil);
     }
+    
+    [picker dismissViewControllerAnimated:YES completion:NULL];
 }
 
 
@@ -139,12 +221,15 @@
     if ([UIScreen mainScreen].bounds.size.height > 480.0f) {
         return;
     }
-
-    for (NSLayoutConstraint *constraint in self.scrollViewContent.constraints) {
-        if([@"top_picture" isEqualToString:constraint.identifier]) {
-            constraint.constant = 0;
-        }
+    
+    for (NSLayoutConstraint *constraint in self.view.constraints) {
         if ([@"picture_name" isEqualToString:constraint.identifier]) {
+            constraint.constant = 10;
+        }
+        if ([@"birthDate_letsGo" isEqualToString:constraint.identifier]) {
+            constraint.constant = 10;
+        }
+        if ([@"separator_socleNetwork" isEqualToString:constraint.identifier]) {
             constraint.constant = 10;
         }
     }

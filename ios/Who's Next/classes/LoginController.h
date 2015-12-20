@@ -14,4 +14,8 @@
 
 @interface LoginController : UIViewController
 
+- (IBAction)takeOrSelectPhotoOnButtonClick:(UIButton *)sender;
+- (void)takePhoto;
+- (void)selectPhoto;
+
 @end
