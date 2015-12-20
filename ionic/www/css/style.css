@@ -1,4 +1,36 @@
 /* Empty. Add your own CSS if you like */
+.signup{
+  background-color: #03A9F4;
+}
+
+.avatar {
+  background-color: #0288D1;
+  height: 120px;
+  width: 120px;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-left: auto;
+}
+
+.whoseNext-textfield{
+  background-color: #0288D1;
+  width: 100%;
+  height: 50px !important;
+  color: white;
+  text-align: center;
+  -webkit-text-fill-color: white;
+}
+
+.whoseNext-button{
+  background-color:#0288D1;
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  -webkit-text-fill-color: white;
+}
 
 button.ion-plus-circled::before {
   font-size: 30px;

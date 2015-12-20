@@ -2,6 +2,10 @@ angular.module('starter').controller('LoginCtrl', function($scope, $state, $cord
 
   $scope.data = {};
 
+  $scope.choosePicture = function(){
+    //TODO handle picture open
+  };
+
   $scope.Register = function(){
     // setup an abstract state for the tabs directive
     //Create a new user on Parse
