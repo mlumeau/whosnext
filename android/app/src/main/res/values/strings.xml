@@ -17,4 +17,6 @@
     </string>
     <string name="prompt_username">Username</string>
     <string name="prompt_birthdate">Birth date</string>
+    <string name="title_group_list">Groups</string>
+    <string name="title_group_detail">Group Detail</string>
 </resources>
