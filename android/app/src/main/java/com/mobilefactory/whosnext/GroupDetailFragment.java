@@ -13,7 +13,7 @@ import com.mobilefactory.whosnext.dummy.DummyContent;
 
 /**
  * A fragment representing a single Group detail screen.
- * This fragment is either contained in a {@link GroupListActivity}
+ * This fragment is either contained in a {@link GroupListFragment}
  * in two-pane mode (on tablets) or a {@link GroupDetailActivity}
  * on handsets.
  */

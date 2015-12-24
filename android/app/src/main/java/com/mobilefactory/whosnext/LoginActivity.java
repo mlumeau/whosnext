@@ -47,8 +47,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -62,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
-        boolean isSignedIn = getPreferences(Context.MODE_PRIVATE).getBoolean(getString(R.string.signed_in_key),false);
+        boolean isSignedIn = getSharedPreferences(getString(R.string.login_prefs), Context.MODE_PRIVATE).getBoolean(getString(R.string.signed_in_key),false);
 
         if(isSignedIn){
             signIn();
@@ -193,17 +191,18 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
 
-            getPreferences(MODE_PRIVATE).edit().putBoolean(getString(R.string.signed_in_key),true).commit();
+            getSharedPreferences(getString(R.string.login_prefs), MODE_PRIVATE).edit().putBoolean(getString(R.string.signed_in_key),true).commit();
             updateUI(true);
         } else {
             // Signed out, show unauthenticated UI.
             updateUI(false);
+            getSharedPreferences(getString(R.string.login_prefs),MODE_PRIVATE).edit().putBoolean(getString(R.string.signed_in_key),false).commit();
         }
     }
 
     private void updateUI(boolean isSignedIn){
         if(isSignedIn){
-            startActivity(new Intent(this,GroupListActivity.class));
+            startActivity(new Intent(this,MainActivity.class));
             finish();
         }
     }
