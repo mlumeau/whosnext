@@ -1,11 +1,15 @@
 package com.mobilefactory.whosnext;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +17,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
+
+    private int[] imageResId = {
+            R.drawable.ic_notification_clear_all_white_24dp,
+            R.drawable.ic_account_multiple_white_24dp,
+            R.drawable.ic_clipboard_account_white_24dp
+    };
+    private int[] titleResId = {
+            R.string.dashboard,
+            R.string.groups,
+            R.string.my_account
+    };
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -45,7 +60,37 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.getTabAt(0).setIcon(ContextCompat.getDrawable(this, imageResId[0]));
+        setTitle(getString(titleResId[0]));
+        for (int i = 1; i < tabLayout.getTabCount(); i++) {
+            Drawable d = ContextCompat.getDrawable(this, imageResId[i]);
+            d.setColorFilter(Color.BLACK, PorterDuff.Mode.MULTIPLY);
+            d.setAlpha(77);
+            tabLayout.getTabAt(i).setIcon(d);
+        }
+        tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                super.onTabSelected(tab);
+                tab.getIcon().setAlpha(255);
+                tab.getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
+                setTitle(getString(titleResId[tab.getPosition()]));
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                super.onTabUnselected(tab);
+                tab.getIcon().setColorFilter(Color.BLACK, PorterDuff.Mode.MULTIPLY);
+                tab.getIcon().setAlpha(77);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                super.onTabReselected(tab);
+            }
+        });
 
     }
 
@@ -87,6 +132,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -115,15 +162,17 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return getString(R.string.dashboard).toUpperCase();
-                case 1:
-                    return getString(R.string.groups).toUpperCase();
-                case 2:
-                    return getString(R.string.my_account).toUpperCase();
-            }
-            return null;
+            // Generate title based on item position
+            // return tabTitles[position];
+            /*
+            Drawable image = ContextCompat.getDrawable(MainActivity.this, imageResId[position]);
+            image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
+            SpannableString sb = new SpannableString(" ");
+            ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
+            sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return sb;
+            */
+            return "";
         }
     }
 }
