@@ -1,0 +1,50 @@
+
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.mobilefactory.whosnext.GroupDetailFragment"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/cover_photo"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@color/colorPrimaryDark"
+            android:foreground="@drawable/protection_scrim_bottom"
+            android:contentDescription="@string/cover_photo" />
+
+        <TextView
+            android:id="@+id/group_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:layout_alignBottom="@id/cover_photo"
+            android:padding="16dp"
+            android:textSize="56sp"
+            android:textColor="@android:color/white"
+            />
+        <TextView
+            android:id="@+id/group_detail"
+            style="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:layout_below="@id/cover_photo" />
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_dice_white_24dp"
+        android:clickable="true"
+        app:layout_anchor="@+id/cover_photo"
+        app:layout_anchorGravity="bottom|end" />
+
+</android.support.design.widget.CoordinatorLayout>

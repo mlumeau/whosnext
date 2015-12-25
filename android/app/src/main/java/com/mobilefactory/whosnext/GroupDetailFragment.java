@@ -61,7 +61,13 @@ public class GroupDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
+            TextView titleView = ((TextView) rootView.findViewById(R.id.group_title));
+            if(titleView!=null){
+                titleView.setText(mItem.content);
+            }
             ((TextView) rootView.findViewById(R.id.group_detail)).setText(mItem.details);
+
+
         }
 
         return rootView;
