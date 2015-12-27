@@ -1,34 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="horizontal"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+    <com.mobilefactory.whosnext.view.RoundedImageView
+        android:id="@+id/id"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_android_account_circle"
+        android:transitionName="@string/group_image_transition_name"
+        android:layout_margin="@dimen/text_margin"
+        android:textAppearance="?attr/textAppearanceListItem" />
+
+    <TextView
+        android:id="@+id/content"
+        android:transitionName="groupName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal">
+        android:textAppearance="?attr/textAppearanceListItem" />
 
-        <com.mobilefactory.whosnext.view.RoundedImageView
-            android:id="@+id/id"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_android_account_circle"
-            android:layout_margin="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem" />
-
-        <TextView
-            android:id="@+id/content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceListItem" />
-
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>

@@ -23,11 +23,30 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
+            <ImageView
+                android:id="@+id/main.backdrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:fitsSystemWindows="true"
+                android:transitionName="@string/group_image_transition_name"
+                android:src="@drawable/ic_android_account_circle"
+                app:layout_collapseMode="parallax"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/protection_scrim_bottom"
+                />
+
             <android.support.v7.widget.Toolbar
                 android:id="@+id/detail_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
+                android:transitionName="groupName"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -47,6 +66,7 @@
         android:layout_gravity="center_vertical|start"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_dice_white_24dp"
+        android:visibility="invisible"
         app:layout_anchor="@+id/group_detail_container"
         app:layout_anchorGravity="top|end" />
 

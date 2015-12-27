@@ -33,22 +33,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GroupListFragment"
-            android:label="@string/title_group_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".GroupDetailActivity"
             android:label="@string/title_group_detail"
-            android:parentActivityName=".GroupListFragment"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".GroupListFragment" />
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme"
+            android:label="@string/title_activity_main"/>
     </application>
 
 </manifest>

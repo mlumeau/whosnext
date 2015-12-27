@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -104,7 +106,13 @@ public class GroupListFragment extends Fragment {
                         Intent intent = new Intent(context, GroupDetailActivity.class);
                         intent.putExtra(GroupDetailFragment.ARG_ITEM_ID, holder.mItem.id);
 
-                        context.startActivity(intent);
+                        //scene transitions
+
+                        Pair<View, String> p1 = Pair.create((View) holder.mImageView, getString(R.string.group_image_transition_name));
+                        Pair<View, String> p2 = Pair.create((View)holder.mContentView,getString(R.string.group_name_transition_name));
+
+                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),p1,p2);
+                        context.startActivity(intent,options.toBundle());
                     }
                 }
             });
