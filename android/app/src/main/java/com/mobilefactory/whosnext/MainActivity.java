@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +17,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.mobilefactory.whosnext.utils.Animations;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private AppBarLayout appBar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +67,19 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+
+
+        final View fab = findViewById(R.id.fab_add_group);
+        if(fab!=null) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+        }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -81,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
                 tab.getIcon().setAlpha(255);
                 tab.getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
                 setTitle(getString(titleResId[tab.getPosition()]));
+                if (tab.getPosition() == 1 && fab!=null)
+                    Animations.reveal(fab,null);
                 appBar.setExpanded(true);
             }
 
@@ -89,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
                 super.onTabUnselected(tab);
                 tab.getIcon().setColorFilter(Color.BLACK, PorterDuff.Mode.MULTIPLY);
                 tab.getIcon().setAlpha(77);
+                if (tab.getPosition() == 1 && fab!=null)
+                    Animations.hide(fab,null);
             }
 
             @Override
@@ -96,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
                 super.onTabReselected(tab);
             }
         });
-
     }
 
 

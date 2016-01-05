@@ -1,12 +1,15 @@
 package com.mobilefactory.whosnext;
 
+import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.ChangeBounds;
 import android.transition.Transition;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +29,17 @@ public class GroupDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setSharedElementEnterTransition(enterTransition());
+        }
+
+
         setContentView(R.layout.activity_group_detail);
+
+        ActivityCompat.postponeEnterTransition(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
@@ -67,32 +80,7 @@ public class GroupDetailActivity extends AppCompatActivity {
 
                 }
             });
-            getWindow().getSharedElementReturnTransition().addListener(new Transition.TransitionListener() {
-                @Override
-                public void onTransitionStart(Transition transition) {
-                    Animations.hide(fab,null);
-                }
 
-                @Override
-                public void onTransitionEnd(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionCancel(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionPause(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionResume(Transition transition) {
-
-                }
-            });
         }else{
             fab.setVisibility(View.VISIBLE);
         }
@@ -137,11 +125,25 @@ public class GroupDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            supportFinishAfterTransition();
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
 
+
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private Transition enterTransition() {
+        ChangeBounds bounds = new ChangeBounds();
+        bounds.setDuration(200);
+
+        return bounds;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

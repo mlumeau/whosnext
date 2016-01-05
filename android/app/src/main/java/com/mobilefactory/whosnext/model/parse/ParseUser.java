@@ -1,5 +1,7 @@
 package com.mobilefactory.whosnext.model.parse;
 
+import android.os.Parcel;
+
 import com.mobilefactory.whosnext.model.Group;
 import com.mobilefactory.whosnext.model.User;
 import com.mobilefactory.whosnext.service.ServiceCallback;
@@ -16,11 +18,25 @@ import java.util.List;
 @ParseClassName("_User")
 public class ParseUser extends com.parse.ParseUser implements User {
 
+    public static final String KEY_USERNAME = "username";
     private List<Group> userGroups;
 
     public ParseUser(){
+        super();
         userGroups = new ArrayList<>();
     }
+
+    protected ParseUser(Parcel in) {
+        super();
+        String[] data = new String[2];
+        in.readStringArray(data);
+
+        setObjectId(data[0]);
+        add(KEY_USERNAME,data[1]);
+
+        in.readList(userGroups, null);
+    }
+
 
     @Override
     public String getId() {
@@ -29,7 +45,7 @@ public class ParseUser extends com.parse.ParseUser implements User {
 
     @Override
     public String getUsername() {
-        return getString("username");
+        return getString(KEY_USERNAME);
     }
 
     @Override
@@ -51,4 +67,6 @@ public class ParseUser extends com.parse.ParseUser implements User {
             }
         });
     }
+
+
 }

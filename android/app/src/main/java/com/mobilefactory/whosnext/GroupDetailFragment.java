@@ -1,15 +1,26 @@
 package com.mobilefactory.whosnext;
 
 import android.app.Activity;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mobilefactory.whosnext.dummy.DummyContent;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
+import com.mobilefactory.whosnext.model.Group;
+import com.mobilefactory.whosnext.service.DBService;
+import com.mobilefactory.whosnext.service.ServiceCallback;
+import com.mobilefactory.whosnext.service.parse.ParseService;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 /**
  * A fragment representing a single Group detail screen.
@@ -22,12 +33,12 @@ public class GroupDetailFragment extends Fragment {
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
-    public static final String ARG_ITEM_ID = "item_id";
+    public static final String ARG_ITEM_ID= "item_id";
 
     /**
-     * The dummy content this fragment is presenting.
+     * The content this fragment is presenting.
      */
-    private DummyContent.DummyItem mItem;
+    private Group mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -37,39 +48,72 @@ public class GroupDetailFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-
-            Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-            if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
-            }
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.group_detail, container, false);
+        final View rootView = inflater.inflate(R.layout.group_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            TextView titleView = ((TextView) rootView.findViewById(R.id.group_title));
-            if(titleView!=null){
-                titleView.setText(mItem.content);
-            }
-            ((TextView) rootView.findViewById(R.id.group_detail)).setText(mItem.details);
+        if (getArguments().containsKey(ARG_ITEM_ID)) {
 
 
+            //TODO: get from local datastore
+            DBService dbService = new ParseService();
+            dbService.getGroup(getArguments().getString(ARG_ITEM_ID), new ServiceCallback<Group>() {
+                @Override
+                public void doWithResult(Group result) {
+
+                    mItem = result;
+
+                    ImageView iv = null;
+                    String coverUrl = mItem.getCoverUrl();
+
+                    Activity activity = getActivity();
+                    CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+                    if (appBarLayout != null) {
+
+                        iv = (ImageView) getActivity().findViewById(R.id.main_backdrop);
+
+                        appBarLayout.setTitle(mItem.getName());
+                    }
+
+                    TextView titleView = ((TextView) rootView.findViewById(R.id.group_title));
+                    if (titleView != null) {
+                        titleView.setText(mItem.getName());
+                        iv = (ImageView) rootView.findViewById(R.id.cover_photo);
+                    }
+
+                    if(!coverUrl.equals("") && iv!=null)
+                        Picasso.with(getContext())
+                                .load(coverUrl)
+                                .noFade()
+                                .fit()
+                                .centerCrop()
+                                .placeholder(new ColorDrawable(ContextCompat.getColor(getContext(), R.color.colorPrimary)))
+                                .into(iv, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
+                                        ActivityCompat.startPostponedEnterTransition(getActivity());
+                                    }
+
+                                    @Override
+                                    public void onError() {
+                                        ActivityCompat.startPostponedEnterTransition(getActivity());
+                                    }
+                                });
+                    else if(iv!=null){
+                        iv.setBackground(new ColorDrawable(ColorGenerator.MATERIAL.getColor(mItem.getName())));
+                        ActivityCompat.startPostponedEnterTransition(getActivity());
+                    }
+                    ((TextView) rootView.findViewById(R.id.group_detail)).setText(mItem.getName());
+                }
+
+                @Override
+                public void failed() {
+                    Log.e("DBSERVICE", "Failed to retrieve group "+getArguments().getString(ARG_ITEM_ID));
+                }
+            });
         }
 
         return rootView;
     }
+
 }

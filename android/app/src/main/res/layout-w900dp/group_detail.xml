@@ -14,7 +14,7 @@
             android:id="@+id/cover_photo"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@color/colorPrimaryDark"
+            android:background="@color/colorPrimaryDark"
             android:foreground="@drawable/protection_scrim_bottom"
             android:contentDescription="@string/cover_photo" />
 

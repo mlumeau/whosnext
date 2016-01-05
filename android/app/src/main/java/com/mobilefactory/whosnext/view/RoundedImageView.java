@@ -32,20 +32,24 @@ public class RoundedImageView extends ImageView {
 
 		Drawable drawable = getDrawable();
 
-		if (drawable == null) {
-			return;
+		if(drawable instanceof BitmapDrawable) {
+			if (drawable == null) {
+				return;
+			}
+
+			if (getWidth() == 0 || getHeight() == 0) {
+				return;
+			}
+			Bitmap b = ((BitmapDrawable) drawable).getBitmap();
+			Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
+
+			int w = getWidth(), h = getHeight();
+
+			Bitmap roundBitmap = getCroppedBitmap(bitmap, w);
+			canvas.drawBitmap(roundBitmap, 0, 0, null);
+		}else{
+			super.onDraw(canvas);
 		}
-
-		if (getWidth() == 0 || getHeight() == 0) {
-			return;
-		}
-		Bitmap b = ((BitmapDrawable) drawable).getBitmap();
-		Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
-
-		int w = getWidth(), h = getHeight();
-
-		Bitmap roundBitmap = getCroppedBitmap(bitmap, w);
-		canvas.drawBitmap(roundBitmap, 0, 0, null);
 
 	}
 

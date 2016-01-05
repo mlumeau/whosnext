@@ -5,6 +5,7 @@ import com.mobilefactory.whosnext.model.User;
 import com.mobilefactory.whosnext.service.ServiceCallback;
 import com.mobilefactory.whosnext.service.parse.ParseService;
 import com.parse.ParseClassName;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 import java.util.ArrayList;
@@ -17,11 +18,16 @@ import java.util.List;
 @ParseClassName("Group")
 public class ParseGroup extends ParseObject implements Group {
 
+    public static final String KEY_NAME = "name";
+    private static final String KEY_COVER = "cover";
+
     private List<User> groupUsers;
 
     public ParseGroup(){
+        super();
         groupUsers = new ArrayList<>();
     }
+
 
     @Override
     public String getId() {
@@ -30,7 +36,16 @@ public class ParseGroup extends ParseObject implements Group {
 
     @Override
     public String getName() {
-        return getString("name");
+        return getString(KEY_NAME);
+    }
+
+    @Override
+    public String getCoverUrl() {
+        ParseFile coverFile = getParseFile(KEY_COVER);
+        if(coverFile!=null)
+            return coverFile.getUrl();
+        else
+            return "";
     }
 
     @Override
@@ -52,5 +67,4 @@ public class ParseGroup extends ParseObject implements Group {
             }
         });
     }
-
 }

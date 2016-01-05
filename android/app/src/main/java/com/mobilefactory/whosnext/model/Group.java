@@ -13,6 +13,8 @@ public interface Group {
 
     String getName();
 
+    String getCoverUrl();
+
     List<User> getUsers();
 
     void fetchUsers(ServiceCallback<Group> callback);
