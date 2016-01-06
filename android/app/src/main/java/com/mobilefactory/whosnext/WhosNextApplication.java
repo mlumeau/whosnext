@@ -5,6 +5,7 @@ import android.app.Application;
 import com.mobilefactory.whosnext.model.parse.ParseGroup;
 import com.mobilefactory.whosnext.model.parse.ParseUser;
 import com.parse.Parse;
+import com.parse.ParseACL;
 import com.parse.ParseObject;
 
 public class WhosNextApplication extends Application
@@ -22,5 +23,9 @@ public class WhosNextApplication extends Application
     ParseObject.registerSubclass(ParseGroup.class);
 
     Parse.initialize(this);
+
+    ParseUser.enableAutomaticUser();
+    ParseACL defaultACL = new ParseACL();
+    ParseACL.setDefaultACL(defaultACL, true);
   }
 }

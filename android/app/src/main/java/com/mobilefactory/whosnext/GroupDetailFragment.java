@@ -59,51 +59,56 @@ public class GroupDetailFragment extends Fragment {
             DBService dbService = new ParseService();
             dbService.getGroup(getArguments().getString(ARG_ITEM_ID), new ServiceCallback<Group>() {
                 @Override
-                public void doWithResult(Group result) {
+                public void doWithResult(final Group result) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mItem = result;
 
-                    mItem = result;
+                            ImageView iv = null;
+                            String coverUrl = mItem.getCoverUrl();
 
-                    ImageView iv = null;
-                    String coverUrl = mItem.getCoverUrl();
+                            Activity activity = getActivity();
+                            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+                            if (appBarLayout != null) {
 
-                    Activity activity = getActivity();
-                    CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-                    if (appBarLayout != null) {
+                                iv = (ImageView) getActivity().findViewById(R.id.main_backdrop);
 
-                        iv = (ImageView) getActivity().findViewById(R.id.main_backdrop);
+                                appBarLayout.setTitle(mItem.getName());
+                            }
 
-                        appBarLayout.setTitle(mItem.getName());
-                    }
+                            TextView titleView = ((TextView) rootView.findViewById(R.id.group_title));
+                            if (titleView != null) {
+                                titleView.setText(mItem.getName());
+                                iv = (ImageView) rootView.findViewById(R.id.cover_photo);
+                            }
 
-                    TextView titleView = ((TextView) rootView.findViewById(R.id.group_title));
-                    if (titleView != null) {
-                        titleView.setText(mItem.getName());
-                        iv = (ImageView) rootView.findViewById(R.id.cover_photo);
-                    }
+                            if (!coverUrl.equals("") && iv != null)
+                                Picasso.with(getContext())
+                                        .load(coverUrl)
+                                        .noFade()
+                                        .fit()
+                                        .centerCrop()
+                                        .placeholder(new ColorDrawable(ContextCompat.getColor(getContext(), R.color.colorPrimary)))
+                                        .into(iv, new Callback() {
+                                            @Override
+                                            public void onSuccess() {
+                                                ActivityCompat.startPostponedEnterTransition(getActivity());
+                                            }
 
-                    if(!coverUrl.equals("") && iv!=null)
-                        Picasso.with(getContext())
-                                .load(coverUrl)
-                                .noFade()
-                                .fit()
-                                .centerCrop()
-                                .placeholder(new ColorDrawable(ContextCompat.getColor(getContext(), R.color.colorPrimary)))
-                                .into(iv, new Callback() {
-                                    @Override
-                                    public void onSuccess() {
-                                        ActivityCompat.startPostponedEnterTransition(getActivity());
-                                    }
+                                            @Override
+                                            public void onError() {
+                                                ActivityCompat.startPostponedEnterTransition(getActivity());
+                                            }
+                                        });
+                            else if (iv != null) {
+                                iv.setBackground(new ColorDrawable(ColorGenerator.MATERIAL.getColor(mItem.getName())));
+                                ActivityCompat.startPostponedEnterTransition(getActivity());
+                            }
+                            ((TextView) rootView.findViewById(R.id.group_detail)).setText(mItem.getName());
+                        }
+                    });
 
-                                    @Override
-                                    public void onError() {
-                                        ActivityCompat.startPostponedEnterTransition(getActivity());
-                                    }
-                                });
-                    else if(iv!=null){
-                        iv.setBackground(new ColorDrawable(ColorGenerator.MATERIAL.getColor(mItem.getName())));
-                        ActivityCompat.startPostponedEnterTransition(getActivity());
-                    }
-                    ((TextView) rootView.findViewById(R.id.group_detail)).setText(mItem.getName());
                 }
 
                 @Override

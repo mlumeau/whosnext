@@ -80,13 +80,13 @@ public class GroupListFragment extends Fragment {
                     @Override
                     public void doWithResult(User result) {
                         ((GroupRecyclerViewAdapter) recyclerView.getAdapter()).setValues(result.getGroups());
-                        progress.setVisibility(View.GONE);
+                        changeIndeterminateProgress(false);
                     }
 
                     @Override
                     public void failed() {
                         Log.e("DBSERVICE", "Failed to fetch groups of user " + result.getId());
-                        progress.setVisibility(View.GONE);
+                        changeIndeterminateProgress(false);
                     }
                 });
             }
@@ -95,6 +95,18 @@ public class GroupListFragment extends Fragment {
             public void failed() {
                 Log.e("DBSERVICE", "Failed to retrieve user");
                 progress.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void changeIndeterminateProgress(final boolean inProgress){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(inProgress)
+                    progress.setVisibility(View.VISIBLE);
+                else
+                    progress.setVisibility(View.GONE);
             }
         });
     }
@@ -165,7 +177,12 @@ public class GroupListFragment extends Fragment {
 
         public void setValues(List<Group> items){
             mValues = items;
-            notifyDataSetChanged();
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    notifyDataSetChanged();
+                }
+            });
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {

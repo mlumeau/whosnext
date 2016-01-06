@@ -1,7 +1,5 @@
 package com.mobilefactory.whosnext.model.parse;
 
-import android.os.Parcel;
-
 import com.mobilefactory.whosnext.model.Group;
 import com.mobilefactory.whosnext.model.User;
 import com.mobilefactory.whosnext.service.ServiceCallback;
@@ -24,17 +22,6 @@ public class ParseUser extends com.parse.ParseUser implements User {
     public ParseUser(){
         super();
         userGroups = new ArrayList<>();
-    }
-
-    protected ParseUser(Parcel in) {
-        super();
-        String[] data = new String[2];
-        in.readStringArray(data);
-
-        setObjectId(data[0]);
-        add(KEY_USERNAME,data[1]);
-
-        in.readList(userGroups, null);
     }
 
 
