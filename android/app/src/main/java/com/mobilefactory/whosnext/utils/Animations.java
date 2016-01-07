@@ -21,7 +21,7 @@ public class Animations {
         int finalRadius = Math.max(myView.getWidth(), myView.getHeight());
 
         Animator anim;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP && myView.isAttachedToWindow()) {
             // create the animator for this view (the start radius is zero)
             anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0, finalRadius);
             if(callback!=null)
@@ -48,7 +48,7 @@ public class Animations {
         int initialRadius = myView.getWidth();
 
         Animator anim;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP && myView.isAttachedToWindow()) {
             // create the animation (the final radius is zero)
             anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, initialRadius, 0);
 
