@@ -28,7 +28,7 @@ public class SignUpActivity extends AppCompatActivity {
     private View mLoginFormView;
 
 
-    private Calendar myCalendar = Calendar.getInstance();
+    private Calendar mCalendar = Calendar.getInstance();
     private EditText mUsernameView;
     private EditText mBirthdateView;
     private Button mSignUpButton;
@@ -59,9 +59,9 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                mCalendar.set(Calendar.YEAR, year);
+                mCalendar.set(Calendar.MONTH, monthOfYear);
+                mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateLabel();
             }
 
@@ -70,8 +70,8 @@ public class SignUpActivity extends AppCompatActivity {
         mBirthdateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(SignUpActivity.this, R.style.DialogTheme, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH))
+                new DatePickerDialog(SignUpActivity.this, R.style.DialogTheme, date, mCalendar
+                        .get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH))
 
                         .show();
             }
@@ -84,8 +84,10 @@ public class SignUpActivity extends AppCompatActivity {
                 String username = mUsernameView.getText().toString().trim();
 
                 user.setUsername(username);
+                user.setBirthdate(mCalendar.getTime());
                 user.setPassword(Integer.toHexString(username.hashCode()));
                 user.setEmail(acct.getEmail());
+                user.setGoogleId(acct.getId());
 
                 user.signUpInBackground(new SignUpCallback() {
                     public void done(ParseException e) {
@@ -106,7 +108,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         DateFormat sdf = DateFormat.getDateInstance();
 
-        mBirthdateView.setText(sdf.format(myCalendar.getTime()));
+        mBirthdateView.setText(sdf.format(mCalendar.getTime()));
     }
 
     /**

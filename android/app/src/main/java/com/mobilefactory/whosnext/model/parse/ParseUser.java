@@ -7,6 +7,7 @@ import com.mobilefactory.whosnext.service.parse.ParseService;
 import com.parse.ParseClassName;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,7 +17,8 @@ import java.util.List;
 @ParseClassName("_User")
 public class ParseUser extends com.parse.ParseUser implements User {
 
-    public static final String KEY_USERNAME = "username";
+    public static final String KEY_BIRTH_DATE = "birthDate";
+    public static final String KEY_GOOGLE_ID = "googleId";
     private List<Group> userGroups;
 
     public ParseUser(){
@@ -31,8 +33,23 @@ public class ParseUser extends com.parse.ParseUser implements User {
     }
 
     @Override
-    public String getUsername() {
-        return getString(KEY_USERNAME);
+    public Date getBirthdate() {
+        return getDate(KEY_BIRTH_DATE);
+    }
+
+    @Override
+    public void setBirthdate(Date date) {
+        this.put(KEY_BIRTH_DATE, date);
+    }
+
+    @Override
+    public String getGoogleId() {
+        return getString(KEY_GOOGLE_ID);
+    }
+
+    @Override
+    public void setGoogleId(String googleId) {
+        this.put(KEY_GOOGLE_ID,googleId);
     }
 
     @Override
