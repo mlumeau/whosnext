@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_disconnect:
                 getSharedPreferences(getString(R.string.login_prefs), MODE_PRIVATE).edit().putBoolean(getString(R.string.signed_in_key),false).commit();
-                startActivity(new Intent(this,LoginActivity.class));
+                startActivity(new Intent(this,SignInActivity.class));
                 finish();
                 return true;
 
