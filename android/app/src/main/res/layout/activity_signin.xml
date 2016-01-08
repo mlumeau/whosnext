@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:background="@color/colorPrimary"
-    tools:context=".SignInActivity">
+    tools:context=".LoginActivity">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

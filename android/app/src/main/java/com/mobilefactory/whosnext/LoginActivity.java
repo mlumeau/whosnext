@@ -27,13 +27,13 @@ import java.util.Map;
 /**
  * A login screen that offers login via email/password.
  */
-public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     // UI references.
     private GoogleApiClient mGoogleApiClient;
     private GoogleSignInOptions gso;
 
-    private static final String TAG = "SignInActivity";
+    private static final String TAG = "LoginActivity";
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInAccount acct;
 

@@ -12,12 +12,12 @@ import com.mobilefactory.whosnext.service.parse.ParseService;
 import java.util.concurrent.CountDownLatch;
 
 
-public class ParseServiceTest extends ActivityInstrumentationTestCase2<SignInActivity> {
+public class ParseServiceTest extends ActivityInstrumentationTestCase2<LoginActivity> {
 
     private DBService dbService;
 
     public ParseServiceTest(){
-        super(SignInActivity.class);
+        super(LoginActivity.class);
     }
 
     @Override
