@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -21,6 +22,7 @@ import com.parse.SignUpCallback;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Random;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -85,7 +87,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 user.setUsername(username);
                 user.setBirthdate(mCalendar.getTime());
-                user.setPassword(Integer.toHexString(username.hashCode()));
+                user.setPassword(Long.toHexString(new Random().nextLong()));
                 user.setEmail(acct.getEmail());
                 user.setGoogleId(acct.getId());
 
@@ -95,8 +97,10 @@ public class SignUpActivity extends AppCompatActivity {
                             startActivity(new Intent(SignUpActivity.this,MainActivity.class));
                             finish();
                         } else {
-                            // Sign up didn't succeed. Look at the ParseException
-                            // to figure out what went wrong
+                            Log.e(getLocalClassName(),e.getMessage());
+                            if(e.getCode()==202){ //username taken
+                                mUsernameView.setError(getString(R.string.username_taken));
+                            }
                         }
                     }
                 });

@@ -21,6 +21,11 @@ import java.util.List;
 public class ParseService implements DBService {
 
     @Override
+    public User getCurrentUser() {
+        return (User) ParseUser.getCurrentUser();
+    }
+
+    @Override
     public void getUser(final String id, final ServiceCallback<User> callback) {
         new Thread(new Runnable() {
             @Override

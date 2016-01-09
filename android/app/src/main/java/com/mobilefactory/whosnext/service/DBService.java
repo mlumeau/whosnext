@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface DBService {
 
+    User getCurrentUser();
     void getUser(String userId, ServiceCallback<User> callback);
     void getGroup(String groupId, ServiceCallback<Group> callback);
     void getGroupUsers(Group group, ServiceCallback<List<User>> callback);

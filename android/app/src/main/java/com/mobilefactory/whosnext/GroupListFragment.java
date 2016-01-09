@@ -38,6 +38,8 @@ import java.util.List;
  */
 public class GroupListFragment extends Fragment {
 
+
+    DBService dbService = new ParseService();
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -69,35 +71,21 @@ public class GroupListFragment extends Fragment {
 
     private void setupRecyclerView(@NonNull final RecyclerView recyclerView) {
 
-        //TODO: get groups from current user instead of dummy
         recyclerView.setAdapter(new GroupRecyclerViewAdapter());
+        dbService.getCurrentUser().fetchGroups(new ServiceCallback<User>() {
+                @Override
+                public void doWithResult(User result) {
+                    ((GroupRecyclerViewAdapter) recyclerView.getAdapter()).setValues(result.getGroups());
+                    changeIndeterminateProgress(false);
+                }
 
-        DBService dbService = new ParseService();
-        dbService.getUser("buqPgzIGBL", new ServiceCallback<User>() {
-            @Override
-            public void doWithResult(final User result) {
-                result.fetchGroups(new ServiceCallback<User>() {
-                    @Override
-                    public void doWithResult(User result) {
-                        ((GroupRecyclerViewAdapter) recyclerView.getAdapter()).setValues(result.getGroups());
-                        changeIndeterminateProgress(false);
-                    }
-
-                    @Override
-                    public void failed() {
-                        Log.e("DBSERVICE", "Failed to fetch groups of user " + result.getId());
-                        changeIndeterminateProgress(false);
-                    }
-                });
-            }
-
-            @Override
-            public void failed() {
-                Log.e("DBSERVICE", "Failed to retrieve user");
-                progress.setVisibility(View.GONE);
-            }
-        });
-    }
+                @Override
+                public void failed() {
+                    Log.e(dbService.getClass().getSimpleName(), "Failed to fetch groups of user " + dbService.getCurrentUser().getId());
+                    changeIndeterminateProgress(false);
+                }
+            });
+        }
 
     private void changeIndeterminateProgress(final boolean inProgress){
         getActivity().runOnUiThread(new Runnable() {
