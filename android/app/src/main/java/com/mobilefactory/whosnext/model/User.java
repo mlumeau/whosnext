@@ -1,5 +1,7 @@
 package com.mobilefactory.whosnext.model;
 
+import android.graphics.Bitmap;
+
 import com.mobilefactory.whosnext.service.ServiceCallback;
 
 import java.util.Date;
@@ -27,6 +29,11 @@ public interface User {
     void setGoogleId(String googleId);
 
     List<Group> getGroups();
+
+    String getPictureUrl();
+
+    void setPictureImage(Bitmap bitmap);
+
 
     void fetchGroups(ServiceCallback<User> callback);
 }

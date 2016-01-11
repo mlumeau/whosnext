@@ -5,6 +5,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.mobilefactory.whosnext.model.parse.ParseUser;
 import com.parse.ParseException;
 import com.parse.SignUpCallback;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -86,7 +90,7 @@ public class SignUpActivity extends AppCompatActivity {
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ParseUser user = new ParseUser();
+                final ParseUser user = new ParseUser();
                 String username = mUsernameView.getText().toString().trim();
 
                 user.setUsername(username);
@@ -95,19 +99,41 @@ public class SignUpActivity extends AppCompatActivity {
                 user.setEmail(acct.getEmail());
                 user.setGoogleId(acct.getId());
 
-                user.signUpInBackground(new SignUpCallback() {
-                    public void done(ParseException e) {
-                        if (e == null) {
-                            startActivity(new Intent(SignUpActivity.this,MainActivity.class));
-                            finish();
-                        } else {
-                            Log.e(getLocalClassName(),e.getMessage());
-                            if(e.getCode()==202){ //username taken
-                                mUsernameView.setError(getString(R.string.username_taken));
+                Picasso.with(SignUpActivity.this).load(acct.getPhotoUrl()).resize(500, 500).onlyScaleDown().centerInside().into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        user.setPictureImage(bitmap);
+                        signUpUser();
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+                        signUpUser();
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+
+                    private void signUpUser(){
+                        user.signUpInBackground(new SignUpCallback() {
+                            public void done(ParseException e) {
+                                if (e == null) {
+                                    startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                                    finish();
+                                } else {
+                                    Log.e(getLocalClassName(), e.getMessage());
+                                    if (e.getCode() == 202) { //username taken
+                                        mUsernameView.setError(getString(R.string.username_taken));
+                                    }
+                                }
                             }
-                        }
+                        });
                     }
                 });
+
+
             }
         });
     }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.mobilefactory.whosnext.model.User;
 import com.mobilefactory.whosnext.service.DBService;
 import com.mobilefactory.whosnext.service.parse.ParseService;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 
@@ -44,7 +45,6 @@ public class AccountFragment extends Fragment {
 
         mUser = dbService.getCurrentUser();
 
-        //todo: implement profile pic
         mImageView = (ImageView) rootView.findViewById(R.id.profile_pic);
         mUsernameView = (TextView) rootView.findViewById(R.id.username);
         mBirthdateView = (TextView) rootView.findViewById(R.id.birthdate);
@@ -52,6 +52,8 @@ public class AccountFragment extends Fragment {
 
         mUsernameView.setText(mUser.getUsername());
         mBirthdateView.setText(DateFormat.getDateInstance().format(mUser.getBirthdate()));
+        if(!mUser.getPictureUrl().isEmpty())
+            Picasso.with(getContext()).load(mUser.getPictureUrl()).fit().centerCrop().into(mImageView);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +74,8 @@ public class AccountFragment extends Fragment {
         if(requestCode==EDIT_REQUEST_CODE && resultCode==EditAccountActivity.EDIT_ACCOUNT_OKAY_RESULT_CODE){
             mUsernameView.setText(mUser.getUsername());
             mBirthdateView.setText(DateFormat.getDateInstance().format(mUser.getBirthdate()));
+            if(!mUser.getPictureUrl().isEmpty())
+                Picasso.with(getContext()).load(mUser.getPictureUrl()).fit().centerCrop().into(mImageView);
         }
     }
 }

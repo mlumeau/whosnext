@@ -1,5 +1,7 @@
 package com.mobilefactory.whosnext.model;
 
+import android.graphics.Bitmap;
+
 import com.mobilefactory.whosnext.service.ServiceCallback;
 
 import java.util.List;
@@ -16,6 +18,8 @@ public interface Group {
     String getName();
 
     String getCoverUrl();
+
+    void setCoverImage(Bitmap bitmap);
 
     List<User> getUsers();
 

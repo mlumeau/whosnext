@@ -36,4 +36,5 @@
     <string name="username_taken">Username already taken.</string>
     <string name="profile_pic_transition_name">profilePic</string>
     <string name="edit_profile">Edit my profile</string>
+    <string name="image_intent_picker_title">Take a picture or pick one from your gallery</string>
 </resources>

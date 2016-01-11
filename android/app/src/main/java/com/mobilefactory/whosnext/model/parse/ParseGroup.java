@@ -1,5 +1,7 @@
 package com.mobilefactory.whosnext.model.parse;
 
+import android.graphics.Bitmap;
+
 import com.mobilefactory.whosnext.model.Group;
 import com.mobilefactory.whosnext.model.User;
 import com.mobilefactory.whosnext.service.DBException;
@@ -11,6 +13,7 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +51,19 @@ public class ParseGroup extends ParseObject implements Group {
             return coverFile.getUrl();
         else
             return "";
+    }
+
+    @Override
+    public void setCoverImage(Bitmap bitmap) {
+        // Convert bitmap to byte
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        // Compress image to lower quality scale 1 - 100
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+        byte[] byteArray = stream.toByteArray();
+
+        ParseFile pf = new ParseFile(byteArray);
+
+        this.put(KEY_COVER,pf);
     }
 
     @Override

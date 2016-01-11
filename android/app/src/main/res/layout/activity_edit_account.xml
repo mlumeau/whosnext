@@ -21,12 +21,14 @@
             android:layout_width="match_parent"
             android:background="@color/colorPrimaryDark"
             android:clickable="true"
-            android:layout_height="200dp">
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:layout_height="@dimen/profile_pic_height">
 
             <ImageView
                 android:id="@+id/edit_profile_pic"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:foreground="@drawable/protection_scrim_top"
                 android:transitionName="@string/profile_pic_transition_name"
                 android:scaleType="centerCrop"/>
 
@@ -40,11 +42,6 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/protection_scrim_top"
-                />
         </RelativeLayout>
 
         <LinearLayout
