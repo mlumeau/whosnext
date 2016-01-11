@@ -8,12 +8,11 @@ import java.util.List;
 /**
  * Created by Maxime on 19/12/2015.
  */
-public interface DBService {
-
-    User getCurrentUser();
-    void getUser(String userId, ServiceCallback<User> callback);
-    void getGroup(String groupId, ServiceCallback<Group> callback);
-    void getGroupUsers(Group group, ServiceCallback<List<User>> callback);
-    void getUserGroups(User user, ServiceCallback<List<Group>> callback);
+public abstract class DBService {
+    abstract public User getCurrentUser();
+    abstract public void getUser(String userId, ServiceCallback<User> callback);
+    abstract public void getGroup(String groupId, ServiceCallback<Group> callback);
+    abstract public void getGroupUsers(Group group, ServiceCallback<List<User>> callback);
+    abstract public void getUserGroups(User user, ServiceCallback<List<Group>> callback);
 
 }

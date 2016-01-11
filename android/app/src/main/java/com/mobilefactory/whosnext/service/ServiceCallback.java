@@ -7,5 +7,5 @@ public abstract class ServiceCallback<T> {
 
     public abstract void doWithResult(T result);
 
-    public abstract void failed();
+    public abstract void failed(DBException e);
 }

@@ -9,6 +9,8 @@ import java.util.List;
  */
 public interface Group {
 
+    void saveGroup(ServiceCallback<Group> callback);
+
     String getId();
 
     String getName();

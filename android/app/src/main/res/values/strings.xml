@@ -27,11 +27,13 @@
     <string name="groups">Groups</string>
     <string name="my_account">My account</string>
     <string name="login_prefs">login_state</string>
-    <string name="new_group">New group...</string>
+    <string name="new_group">New group…</string>
     <string name="cover_photo">cover photo</string>
     <string name="group_image_transition_name">groupImage</string>
     <string name="group_name_transition_name">groupName</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="sign_up">Sign up</string>
     <string name="username_taken">Username already taken.</string>
+    <string name="profile_pic_transition_name">profilePic</string>
+    <string name="edit_profile">Edit my profile</string>
 </resources>

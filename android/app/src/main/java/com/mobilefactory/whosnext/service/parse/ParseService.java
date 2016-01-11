@@ -6,6 +6,7 @@ import com.mobilefactory.whosnext.model.Group;
 import com.mobilefactory.whosnext.model.User;
 import com.mobilefactory.whosnext.model.parse.ParseGroup;
 import com.mobilefactory.whosnext.model.parse.ParseUser;
+import com.mobilefactory.whosnext.service.DBException;
 import com.mobilefactory.whosnext.service.DBService;
 import com.mobilefactory.whosnext.service.ServiceCallback;
 import com.parse.ParseException;
@@ -18,7 +19,16 @@ import java.util.List;
 /**
  * Created by Maxime on 19/12/2015.
  */
-public class ParseService implements DBService {
+public class ParseService extends DBService {
+
+    private static DBService ourInstance = new ParseService();
+
+    public static DBService getInstance() {
+        return ourInstance;
+    }
+
+    private ParseService() {
+    }
 
     @Override
     public User getCurrentUser() {
@@ -36,7 +46,7 @@ public class ParseService implements DBService {
                     callback.doWithResult(u);
                 } catch(ParseException e){
                     Log.d("PARSE","Unable to retrieve user "+id,e);
-                    callback.failed();
+                    callback.failed(new DBException(e.getCode(),e.getMessage()));
                 }
             }
         }).start();
@@ -55,7 +65,7 @@ public class ParseService implements DBService {
                     callback.doWithResult(g);
                 }catch(ParseException e){
                     Log.d("PARSE", "Unable to retrieve group " + id, e);
-                    callback.failed();
+                    callback.failed(new DBException(e.getCode(),e.getMessage()));
                 }
             }
         }).start();
@@ -77,7 +87,7 @@ public class ParseService implements DBService {
                     callback.doWithResult(users);
                 }catch (ParseException e){
                     Log.d("PARSE", "Unable to retrieve users from group" + group.getId(), e);
-                    callback.failed();
+                    callback.failed(new DBException(e.getCode(),e.getMessage()));
                 }
             }
         }).start();
@@ -99,7 +109,7 @@ public class ParseService implements DBService {
                     callback.doWithResult(groups);
                 } catch (ParseException e) {
                     Log.d("PARSE", "Unable to retrieve groups from user" + user.getId(), e);
-                    callback.failed();
+                    callback.failed(new DBException(e.getCode(),e.getMessage()));
                 }
             }
         }).start();

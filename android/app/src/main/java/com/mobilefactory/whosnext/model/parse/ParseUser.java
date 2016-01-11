@@ -2,9 +2,12 @@ package com.mobilefactory.whosnext.model.parse;
 
 import com.mobilefactory.whosnext.model.Group;
 import com.mobilefactory.whosnext.model.User;
+import com.mobilefactory.whosnext.service.DBException;
 import com.mobilefactory.whosnext.service.ServiceCallback;
 import com.mobilefactory.whosnext.service.parse.ParseService;
 import com.parse.ParseClassName;
+import com.parse.ParseException;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,7 +61,7 @@ public class ParseUser extends com.parse.ParseUser implements User {
     }
 
     public void fetchGroups(final ServiceCallback<User> callback){
-        new ParseService().getUserGroups(this, new ServiceCallback<List<Group>>() {
+        ParseService.getInstance().getUserGroups(this, new ServiceCallback<List<Group>>() {
             @Override
             public void doWithResult(List<Group> result) {
                 userGroups = result;
@@ -66,11 +69,24 @@ public class ParseUser extends com.parse.ParseUser implements User {
             }
 
             @Override
-            public void failed() {
-                callback.failed();
+            public void failed(DBException e) {
+                callback.failed(new DBException(e.getCode(),e.getMessage()));
             }
         });
     }
 
+    @Override
+    public void saveUser(final ServiceCallback<User> callback){
+        saveEventually(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e==null){
+                    callback.doWithResult(ParseUser.this);
+                }else{
+                    callback.failed(new DBException(e.getCode(),e.getMessage()));
+                }
+            }
+        });
+    }
 
 }

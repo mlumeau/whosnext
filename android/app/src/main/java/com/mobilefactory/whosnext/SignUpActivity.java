@@ -64,6 +64,10 @@ public class SignUpActivity extends AppCompatActivity {
                 mCalendar.set(Calendar.YEAR, year);
                 mCalendar.set(Calendar.MONTH, monthOfYear);
                 mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                mCalendar.set(Calendar.HOUR,0);
+                mCalendar.set(Calendar.MINUTE,0);
+                mCalendar.set(Calendar.SECOND,0);
+                mCalendar.set(Calendar.MILLISECOND,0);
                 updateLabel();
             }
 

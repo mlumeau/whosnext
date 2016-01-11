@@ -20,6 +20,7 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.mobilefactory.whosnext.model.Group;
 import com.mobilefactory.whosnext.model.User;
+import com.mobilefactory.whosnext.service.DBException;
 import com.mobilefactory.whosnext.service.DBService;
 import com.mobilefactory.whosnext.service.ServiceCallback;
 import com.mobilefactory.whosnext.service.parse.ParseService;
@@ -39,7 +40,7 @@ import java.util.List;
 public class GroupListFragment extends Fragment {
 
 
-    DBService dbService = new ParseService();
+    DBService dbService = ParseService.getInstance();
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -80,7 +81,7 @@ public class GroupListFragment extends Fragment {
                 }
 
                 @Override
-                public void failed() {
+                public void failed(DBException e) {
                     Log.e(dbService.getClass().getSimpleName(), "Failed to fetch groups of user " + dbService.getCurrentUser().getId());
                     changeIndeterminateProgress(false);
                 }

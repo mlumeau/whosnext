@@ -25,7 +25,8 @@
 
         <activity
             android:name=".SignInActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,7 +37,7 @@
             android:name=".GroupDetailActivity"
             android:label="@string/title_group_detail"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar.NoStatusBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
@@ -44,15 +45,23 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SignUpActivity"
             android:label="@string/sign_up"
             android:parentActivityName=".SignInActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.NoActionBar.NoStatusBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SignInActivity" />
+        </activity>
+        <activity android:name=".EditAccountActivity"
+            android:label="@string/edit_profile"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
     </application>
 

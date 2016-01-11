@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.mobilefactory.whosnext.model.Group;
+import com.mobilefactory.whosnext.service.DBException;
 import com.mobilefactory.whosnext.service.DBService;
 import com.mobilefactory.whosnext.service.ServiceCallback;
 import com.mobilefactory.whosnext.service.parse.ParseService;
@@ -29,6 +30,7 @@ import com.squareup.picasso.Picasso;
  * on handsets.
  */
 public class GroupDetailFragment extends Fragment {
+    DBService dbService = ParseService.getInstance();
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -56,7 +58,6 @@ public class GroupDetailFragment extends Fragment {
 
 
             //TODO: get from local datastore
-            DBService dbService = new ParseService();
             dbService.getGroup(getArguments().getString(ARG_ITEM_ID), new ServiceCallback<Group>() {
                 @Override
                 public void doWithResult(final Group result) {
@@ -112,7 +113,7 @@ public class GroupDetailFragment extends Fragment {
                 }
 
                 @Override
-                public void failed() {
+                public void failed(DBException e) {
                     Log.e("DBSERVICE", "Failed to retrieve group "+getArguments().getString(ARG_ITEM_ID));
                 }
             });

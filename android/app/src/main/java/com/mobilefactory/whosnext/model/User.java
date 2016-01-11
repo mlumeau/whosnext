@@ -10,6 +10,8 @@ import java.util.List;
  */
 public interface User {
 
+    void saveUser(ServiceCallback<User> callback);
+
     String getId();
 
     String getUsername();
