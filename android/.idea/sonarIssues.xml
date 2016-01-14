@@ -18,6 +18,46 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../mesnotesdefrais/android/app/src/main/res/values/dev__project__properties.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/java/com/soprasteria/mdk/formation2/action/savevirementpanel/SaveVirementPanelImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/java/com/soprasteria/mdk/formation2/dao/AbstractVirementDaoImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/layout/glistpersonnespanel__screenlist1__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/layout/glistvirementspanel__listitem1__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/layout/glistvirementspanel__screenlist1__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/layout/gpersonnepanel__flistitemvmpersonnepanelmesvirements__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/values/dev__project__labels.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/.gitignore">
           <value>
             <set />

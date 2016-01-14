@@ -42,6 +42,7 @@ public class EditAccountActivity extends AppCompatActivity {
     private RelativeLayout mProfilePicWrapper;
     private Uri outputFileUri;
     private boolean isModified = false;
+    private Bitmap mNewBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +133,10 @@ public class EditAccountActivity extends AppCompatActivity {
                     mUser.setBirthdate(mCalendar.getTime());
                     isModified = true;
                 }
+                if(mNewBitmap!=null) {
+                    mUser.setPictureImage(mNewBitmap);
+                    isModified = true;
+                }
 
                 if(isModified){
                     mUser.saveUser(new ServiceCallback<User>() {
@@ -178,8 +183,7 @@ public class EditAccountActivity extends AppCompatActivity {
             Target target = new Target() {
                 @Override
                 public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                    mUser.setPictureImage(bitmap);
-                    isModified = true;
+                    mNewBitmap = bitmap;
                     Picasso.with(EditAccountActivity.this).load(picturePath).fit().centerCrop().into(mProfilePic);
                 }
 
