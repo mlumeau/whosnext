@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'ionic-datepicker'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -18,51 +18,30 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
+      StatusBar.styleLightContent();
     }
 
-    function loadJSON(callback) {
 
-      var xobj = new XMLHttpRequest();
-      xobj.overrideMimeType("application/json");
-      xobj.open('GET', 'config.json', true);
-      xobj.onreadystatechange = function () {
-        if (xobj.readyState == 4 && xobj.status == "200") {
-          // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-          callback(xobj.responseText);
-        }
+    Parse.initialize('APPLICATION_ID', 'JAVASCRIPT_KEY');
+
+    if(!(ionic.Platform.isIOS() || ionic.Platform.isAndroid())){
+      window.fbAsyncInit = function() {
+        Parse.FacebookUtils.init({
+          appId      : 'FACEBOOK_APP_ID',
+          version    : 'v2.5',
+          status     : true,  // check Facebook Login status
+          xfbml      : true
+        });
       };
-      xobj.send(null);
+
+      (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
     }
-
-
-
-    loadJSON(function(response) {
-      // Parse JSON string into object
-      var config_JSON = JSON.parse(response);
-      Parse.initialize(config_JSON.APPLICATION_ID, config_JSON.JAVASCRIPT_KEY);
-
-      if(!(ionic.Platform.isIOS() || ionic.Platform.isAndroid())){
-        window.fbAsyncInit = function() {
-          Parse.FacebookUtils.init({
-            appId      : config_JSON.APPLICATION_ID,
-            version    : 'v2.5',
-            status     : true,  // check Facebook Login status
-            xfbml      : true
-          });
-        };
-
-        (function(d, s, id){
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) {return;}
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_US/sdk.js";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-      }
-    });
-
-
   });
 })
 
@@ -77,16 +56,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     .state('login', {
       url: '/',
       templateUrl: 'templates/login.html',
-      controller: 'LoginCtrl'
-    })
-    .state('signup', {
-      url: '/signup',
-      templateUrl: 'templates/signup.html',
-      controller: 'LoginCtrl'
-    })
-    .state('signin', {
-      url: '/signin',
-      templateUrl: 'templates/signin.html',
       controller: 'LoginCtrl'
     })
     .state('groupList', {
@@ -108,3 +77,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   $urlRouterProvider.otherwise("/");
 
 });
+
+

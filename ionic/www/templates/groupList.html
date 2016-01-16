@@ -1,40 +1,35 @@
 <ion-view title="Groups">
   <ion-nav-buttons side="primary">
-    <button class="button button-icon icon ion-ios-minus-outline"
-            ng-click="showDelete()"></button>
+    <button class="button button-icon icon ion-ios-minus-outline" ng-click="showDelete()">
+    </button>
+  </ion-nav-buttons>
 
-    <button class="button" ng-click="showReorder()">
-      Reorder
-    </button>
-  </ion-nav-buttons>
-  <ion-nav-buttons side="right">
-    <button class="button ion-plus-circled" href="#/groupAdd" >
-    </button>
-  </ion-nav-buttons>
   <ion-content>
-    <ion-list show-delete="shouldShowDelete"
-              show-reorder="shouldShowReorder">
-      <ion-item collection-repeat="item in groupList" href="#/main/{{item.id}}">
-        {{item.name}}
-        <ion-reorder-button class="ion-navicon"
-                            on-reorder="reorderItem(item, $fromIndex, $toIndex)">
-        </ion-reorder-button>
-        <ion-option-button class="button-positive">DELETE</ion-option-button>
-        <ion-reorder-button class="ion-navicon"
-                            on-reorder="moveItem(item, $fromIndex, $toIndex)">
-        </ion-reorder-button>
-        <ion-delete-button class="ion-minus-circled"
-                           ng-click="groupList.splice($index, 1)">
+
+    <ion-list show-delete="shouldShowDelete">
+      <ion-item collection-repeat="item in groupList" class="item-icon-right item-avatar" href="#/main/{{item.id}}">
+        <img src="img/facebook.png">
+
+        <h2 style="margin-left: 30px">{{item.attributes.name}}</h2>
+
+        <p style="margin-left: 30px">Next Date :  {{item.attributes.nextDate | date:'dd/MM/yyyy @ h:mma'}}</p>
+        <ion-option-button class="button-assertive" ng-click="deleteGroup(item)">DELETE</ion-option-button>
+        <ion-delete-button class="ion-minus-circled" ng-click="groupList.splice($index, 1)">
         </ion-delete-button>
 
-
       </ion-item>
-
-
     </ion-list>
 
-
   </ion-content>
+
+  <div class="float-button" ng-click="showPopupGroupCreate()">
+  <span class="height-fix">
+    <a class="content">
+      <i class="ion-plus-round"> </i>
+    </a>
+  </span>
+  </div>
+
 </ion-view>
 
 

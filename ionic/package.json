@@ -1,7 +1,7 @@
 {
   "name": "whosnext",
   "version": "1.1.1",
-  "description": "whosNext: An Ionic project",
+  "description": "whosNext",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
@@ -12,6 +12,7 @@
   "devDependencies": {
     "bower": "^1.3.3",
     "gulp-util": "^2.2.14",
+    "parse": "^1.6.13",
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
@@ -24,9 +25,6 @@
   ],
   "cordovaPlatforms": [
     "ios",
-    {
-      "platform": "android",
-      "locator": "browser"
-    }
+    "android"
   ]
 }

@@ -2,21 +2,75 @@
 .signup{
   background-color: #03A9F4;
 }
+.bar-calm .nav-bar-block ion-header-bar {
+  border-color: #03A9F4;
+  background-color: #03A9F4;
+}
+
+.bar-calm .button{
+  background-color: #03A9F4;
+}
+.GroupCreate .popup{
+  width: 300px !important;
+  height: auto;
+  background-color: whitesmoke !important;
+  border-radius: 10px;
+
+}
+
+.GroupCreate .item{
+  border-color: whitesmoke;
+
+}
+
+.group-label{
+  color : #0288D1;
+  font-weight: bold;
+}
+
+.button-cancel{
+  border-color: black;
+}
+
+
 
 .avatar {
   background-color: #0288D1;
   height: 120px;
   width: 120px;
-  margin-top: 0;
+  margin-top: 50px;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-left: auto;
+  border-radius: 25px;
+}
+
+.or {
+  color: #0288D1;
+  text-align: center;
+  font-size: large;
+  font-weight: bold;
+  width: inherit;
+  margin-top: 10px;
   margin-right: auto;
   margin-bottom: 0;
   margin-left: auto;
 }
 
+.trait
+{
+  margin-top: 10px;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-left: auto;
+  border-top: 3px solid #0288D1;
+  width : 200px;
+}
+
 .whoseNext-textfield{
   background-color: #0288D1;
   width: 100%;
-  height: 50px !important;
+  height: 80px !important;
   color: white;
   text-align: center;
   -webkit-text-fill-color: white;
@@ -25,11 +79,13 @@
 .whoseNext-button{
   background-color:#0288D1;
   width: 100%;
-  height: 100%;
+  height: 80px;
   color: white;
   text-align: center;
   font-weight: bold;
   -webkit-text-fill-color: white;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 button.ion-plus-circled::before {
@@ -42,81 +98,255 @@ button.ion-plus-circled::before {
   cursor: zoom-in;
 }
 
-.flip li
-{
-  display: inline-block;
-  height: 200px;
-  list-style: none;
-  width: 200px;
-}
-.flip img
-{
-  backface-visibility: hidden;
-  position: absolute;
-  transform: rotateY(180deg);
-  transition: transform .1s linear .5s;
-}
-.flip img:first-child
-{
-  transform: rotateY(0deg);
+/*.flip li*/
+/*{*/
+  /*display: inline-block;*/
+  /*height: 200px;*/
+  /*list-style: none;*/
+  /*width: 200px;*/
+/*}*/
+/*.flip img*/
+/*{*/
+  /*backface-visibility: hidden;*/
+  /*position: absolute;*/
+  /*transform: rotateY(180deg);*/
+  /*transition: transform .1s linear .5s;*/
+/*}*/
+/*.flip img:first-child*/
+/*{*/
+  /*transform: rotateY(0deg);*/
+/*}*/
+
+/*.transition img*/
+/*{*/
+  /*transform: rotateY(0deg);*/
+  /*transition: transform .1s linear .5s;*/
+  /*transform-style: preserve-3d;*/
+/*}*/
+/*.transition img:first-child*/
+/*{*/
+  /*transform: rotateY(180deg);*/
+/*}*/
+@-webkit-keyframes cf4FadeInOut {
+  0% {
+    opacity: 0;
+  }
+  7% {
+    opacity: 1;
+  }
+  38% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% { opacity: 0 }
+
 }
 
-.transition img
-{
-  transform: rotateY(0deg);
-  transition: transform .1s linear .5s;
-  transform-style: preserve-3d;
+@-moz-keyframes cf4FadeInOut {
+  0% {
+    opacity: 0;
+  }
+  7% {
+    opacity: 1;
+
+  }
+  38% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% { opacity: 0 }
 }
-.transition img:first-child
-{
-  transform: rotateY(180deg);
+
+
+
+@-ms-keyframes cf4FadeInOut {
+  0% {
+    opacity: 0;
+  }
+  7% {
+    opacity: 1;
+  }
+  38% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% { opacity: 0 }
+
+
+}
+
+@-o-keyframes cf4FadeInOut {
+  0% {
+    opacity: 0;
+  }
+  7% {
+    opacity: 1;
+  }
+  38% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% { opacity: 0 }
 }
 
 @keyframes cf4FadeInOut {
   0% {
-    opacity:1;
+    opacity: 0;
   }
-  17% {
-    opacity:1;
+  7% {
+    opacity: 1;
   }
-  25% {
-    opacity:0;
+  38% {
+    opacity: 1;
   }
-  92% {
-    opacity:0;
+  60% {
+    opacity: 0;
   }
-  100% {
-    opacity:1;
-  }
+  100% { opacity: 0 }
 }
 
-#cf4a img:nth-of-type(1) {
-  animation-delay: 6s;
-}
-#cf4a img:nth-of-type(2) {
-  animation-delay: 4s;
-}
-#cf4a img:nth-of-type(3) {
-  animation-delay: 2s;
-}
-#cf4a img:nth-of-type(4) {
-  animation-delay: 0;
-}
+#vign {
+  /*position:relative;*/
 
+  height:125px;
+  width:183px;
+  float:left;
+  margin-right:20px;
+  margin-top:15px;
+}
 #cf4a {
   position:relative;
-  height:281px;
-  width:450px;
-  margin:0 auto;
+  overflow:hidden;
+  height:100px;
+  width:183px;
+
+
 }
+.cf4_title {
+
+  margin-top:3px;
+  font-size:14px;
+
+  font-weight:600;
+  font-family: 'HelveticaNeueLightCondRegular';
+  color:#FFF;
+  text-transform: uppercase;
+  float:right;
+  text-align:right;
+}
+
 
 #cf4a img {
   position:absolute;
   left:0;
-  -webkit-transition: opacity 1s ease-in-out;
-  -moz-transition: opacity 1s ease-in-out;
-  -o-transition: opacity 1s ease-in-out;
-  transition: opacity 1s ease-in-out;
 }
+
+#cf4a img {
+  -webkit-animation-name: cf4FadeInOut;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-duration: 1s;
+
+  -moz-animation-name: cf4FadeInOut;
+  -moz-animation-timing-function: linear;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-duration: 1s;
+
+  -ms-animation-name: cf4FadeInOut;
+  -ms-animation-timing-function: linear;
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-duration: 1s;
+
+  -o-animation-name: cf4FadeInOut;
+  -o-animation-timing-function: linear;
+  -o-animation-iteration-count: infinite;
+  -o-animation-duration: 1s;
+
+  animation-name: cf4FadeInOut;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: 4s;
+
+}
+#cf4a img:nth-of-type(1) {
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  -ms-animation-delay: 1s;
+  -o-animation-delay: 1s;
+  animation-delay: 4s;
+
+}
+#cf4a img:nth-of-type(2) {
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  -ms-animation-delay: 1s;
+  -o-animation-delay: 1s;
+  animation-delay: 4s;
+}
+#cf4a img:nth-of-type(3) {
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  -ms-animation-delay: 1s;
+  -o-animation-delay: 1s;
+  animation-delay: 4s;
+}
+
+
+.float-button {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  width: 30px;
+  padding: 30px;
+  font-size: 40px;
+  background: #0288D1;
+  position: fixed;
+  bottom: 20px; /* Adjust to where you want it */
+  right: 20px; /* Adjust to where you want it */
+  z-index: 9999;
+}
+
+.float-button .height_fix {
+  margin-top: 100%;
+}
+
+.float-button .content {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  margin-top: -20px; /* Note, this must be half the font size */
+  color: white;
+}
+
+.item{
+  border-color: #0288D1;
+}
+
+.item.ng-enter {
+  -webkit-animation: fadeInLeft 1s;
+  animation: fadeInLeft 1s;
+}
+
+.item.ng-enter-stagger {
+  -webkit-animation-delay:200ms;
+  animation-delay:200ms;
+
+  /* override to make sure it's not inherited from other styles */
+  -webkit-animation-duration:3s;
+  animation-duration:3s;
+}
+
+
 
 

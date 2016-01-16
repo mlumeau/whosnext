@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "Ionicons": "ionicons#~2.0.1",
-    "jquery": "jQuery#~2.1.4"
+    "jquery": "jQuery#~2.1.4",
+    "ionic-datepicker": "~0.9.0"
   }
 }

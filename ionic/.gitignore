@@ -6,3 +6,4 @@ platforms/
 plugins/
 .idea/
 www/config.json
+www/lib
