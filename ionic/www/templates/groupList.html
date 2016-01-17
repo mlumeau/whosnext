@@ -4,15 +4,15 @@
     </button>
   </ion-nav-buttons>
 
-  <ion-content>
+  <ion-content class="animate-in-primary">
 
     <ion-list show-delete="shouldShowDelete">
-      <ion-item collection-repeat="item in groupList" class="item-icon-right item-avatar" href="#/main/{{item.id}}">
-        <img src="img/facebook.png">
+      <ion-item collection-repeat="item in groupList" class="item-remove-animate item-avatar item-icon-right list-grow-animation" href="#/main/{{item.id}}">
+        <img ng-class="animate-in-primary" src="img/facebook.png">
 
         <h2 style="margin-left: 30px">{{item.attributes.name}}</h2>
 
-        <p style="margin-left: 30px">Next Date :  {{item.attributes.nextDate | date:'dd/MM/yyyy @ h:mma'}}</p>
+        <p class="animate-in-secondary" style="margin-left: 30px">Next Date :  {{item.attributes.nextDate | date:'dd/MM/yyyy @ h:mma'}}</p>
         <ion-option-button class="button-assertive" ng-click="deleteGroup(item)">DELETE</ion-option-button>
         <ion-delete-button class="ion-minus-circled" ng-click="groupList.splice($index, 1)">
         </ion-delete-button>

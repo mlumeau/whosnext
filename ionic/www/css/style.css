@@ -23,6 +23,21 @@
 
 }
 
+.customMenu .item{
+  border : none;
+  color: white;
+
+}
+
+.customMenu{
+  background-color: slategray;
+}
+
+.customMenu .item-complex .item-content, .item{
+  background-color: slategray;
+}
+
+
 .group-label{
   color : #0288D1;
   font-weight: bold;
@@ -98,34 +113,6 @@ button.ion-plus-circled::before {
   cursor: zoom-in;
 }
 
-/*.flip li*/
-/*{*/
-  /*display: inline-block;*/
-  /*height: 200px;*/
-  /*list-style: none;*/
-  /*width: 200px;*/
-/*}*/
-/*.flip img*/
-/*{*/
-  /*backface-visibility: hidden;*/
-  /*position: absolute;*/
-  /*transform: rotateY(180deg);*/
-  /*transition: transform .1s linear .5s;*/
-/*}*/
-/*.flip img:first-child*/
-/*{*/
-  /*transform: rotateY(0deg);*/
-/*}*/
-
-/*.transition img*/
-/*{*/
-  /*transform: rotateY(0deg);*/
-  /*transition: transform .1s linear .5s;*/
-  /*transform-style: preserve-3d;*/
-/*}*/
-/*.transition img:first-child*/
-/*{*/
-  /*transform: rotateY(180deg);*/
 /*}*/
 @-webkit-keyframes cf4FadeInOut {
   0% {
