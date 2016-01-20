@@ -37,4 +37,10 @@
     <string name="profile_pic_transition_name">profilePic</string>
     <string name="edit_profile">Edit my profile</string>
     <string name="image_intent_picker_title">Take a picture or pick one from your gallery</string>
+    <string name="prompt_groupname">Group name</string>
+    <string name="group_members">Group members</string>
+    <string name="add_member">Add a member...</string>
+    <string name="group_cover_picture">Group cover picture</string>
+    <string name="edit_group">Edit a group</string>
+    <string name="create_group">Create a group</string>
 </resources>

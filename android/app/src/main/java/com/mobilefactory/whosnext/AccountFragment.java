@@ -59,7 +59,7 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getContext(), EditAccountActivity.class);
+                Intent intent = new Intent(getContext(), EditGroupActivity.class);
                 startActivityForResult(intent, EDIT_REQUEST_CODE);
             }
         });
@@ -71,7 +71,7 @@ public class AccountFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==EDIT_REQUEST_CODE && resultCode==EditAccountActivity.EDIT_ACCOUNT_OKAY_RESULT_CODE){
+        if(requestCode==EDIT_REQUEST_CODE && resultCode== EditGroupActivity.EDIT_ACCOUNT_OKAY_RESULT_CODE){
             mUsernameView.setText(mUser.getUsername());
             mBirthdateView.setText(DateFormat.getDateInstance().format(mUser.getBirthdate()));
             if(!mUser.getPictureUrl().isEmpty())

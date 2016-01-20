@@ -45,6 +45,11 @@ public class ParseGroup extends ParseObject implements Group {
     }
 
     @Override
+    public void setName(String name) {
+        this.put(KEY_NAME,name);
+    }
+
+    @Override
     public String getCoverUrl() {
         ParseFile coverFile = getParseFile(KEY_COVER);
         if(coverFile!=null)

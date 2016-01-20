@@ -1,6 +1,5 @@
 package com.mobilefactory.whosnext;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -10,13 +9,15 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.mobilefactory.whosnext.model.Group;
 import com.mobilefactory.whosnext.model.User;
+import com.mobilefactory.whosnext.model.parse.ParseGroup;
 import com.mobilefactory.whosnext.service.DBException;
 import com.mobilefactory.whosnext.service.DBService;
 import com.mobilefactory.whosnext.service.ServiceCallback;
@@ -25,73 +26,59 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.io.File;
-import java.text.DateFormat;
-import java.util.Calendar;
+import java.util.List;
 
-public class EditAccountActivity extends AppCompatActivity {
+public class EditGroupActivity extends AppCompatActivity {
 
     public static final int EDIT_ACCOUNT_OKAY_RESULT_CODE = 200;
     public static final int EDIT_ACCOUNT_ABORT_RESULT_CODE = -1;
     public static final int SELECT_PICTURE_REQUEST_CODE = 9000;
     private DBService dbService = ParseService.getInstance();
-    private User mUser;
-    private EditText mBirthdate;
-    private EditText mUsername;
-    private Calendar mCalendar = Calendar.getInstance();
+    private Group mGroup;
+    private EditText mGroupName;
     private ImageView mProfilePic;
     private Uri outputFileUri;
     private boolean isModified = false;
     private Bitmap mNewBitmap;
+    private View mAddMember;
+    private RecyclerView mMemberList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        mUser = dbService.getCurrentUser();
         mNewBitmap = null;
 
-        setContentView(R.layout.activity_edit_account);
+        setContentView(R.layout.activity_edit_group);
 
-        RelativeLayout mPicWrapper = (RelativeLayout) findViewById(R.id.edit_profile_pic_wrapper);
+        RelativeLayout mProfilePicWrapper = (RelativeLayout) findViewById(R.id.edit_profile_pic_wrapper);
         mProfilePic = (ImageView) findViewById(R.id.edit_profile_pic);
-        mUsername = (EditText) findViewById(R.id.edit_username);
-        mBirthdate = (EditText) findViewById(R.id.edit_birthdate);
+        mGroupName = (EditText) findViewById(R.id.edit_groupname);
+        mAddMember = findViewById(R.id.add_member);
+        mMemberList = (RecyclerView) findViewById(R.id.group_members);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        mUsername.setText(mUser.getUsername());
-        mBirthdate.setText(DateFormat.getDateInstance().format(mUser.getBirthdate()));
-        mCalendar.setTime(mUser.getBirthdate());
+        //Init existing group
+        if(getIntent().getStringExtra("groupId")!=null){
+            this.setTitle(getString(R.string.edit_group));
+            dbService.getGroup(getIntent().getStringExtra("groupId"), new ServiceCallback<Group>() {
+                @Override
+                public void doWithResult(Group result) {
+                    initGroup(result);
+                }
 
-        if(!mUser.getPictureUrl().isEmpty())
-            Picasso.with(this).load(mUser.getPictureUrl()).fit().centerCrop().into(mProfilePic);
+                @Override
+                public void failed(DBException e) {
 
-        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+                }
+            });
+        }else{
+            mGroup = new ParseGroup();
+            this.setTitle(getString(R.string.create_group));
+        }
 
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                mCalendar.set(Calendar.YEAR, year);
-                mCalendar.set(Calendar.MONTH, monthOfYear);
-                mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                mCalendar.set(Calendar.HOUR,0);
-                mCalendar.set(Calendar.MINUTE,0);
-                mCalendar.set(Calendar.SECOND,0);
-                mCalendar.set(Calendar.MILLISECOND,0);
-                updateLabel();
-            }
-
-        };
-        mBirthdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(EditAccountActivity.this, R.style.DialogTheme, date, mCalendar
-                        .get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH))
-                        .show();
-            }
-        });
-
-        mPicWrapper.setOnClickListener(new View.OnClickListener() {
+        mProfilePicWrapper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -109,7 +96,7 @@ public class EditAccountActivity extends AppCompatActivity {
 
                 //camera
                 final String fname = "img_" + System.currentTimeMillis() + ".jpg";
-                final File imgFile = new File(EditAccountActivity.this.getExternalFilesDir(Environment.DIRECTORY_PICTURES), fname);
+                final File imgFile = new File(EditGroupActivity.this.getExternalFilesDir(Environment.DIRECTORY_PICTURES), fname);
                 outputFileUri = Uri.fromFile(imgFile);
                 Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
@@ -122,27 +109,31 @@ public class EditAccountActivity extends AppCompatActivity {
             }
         });
 
+
+        mAddMember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mUsername.getText().toString().trim().equals(mUser.getUsername())){
-                    mUser.setUsername(mUsername.getText().toString().trim());
-                    isModified = true;
-                }
-                if(!mCalendar.getTime().equals(mUser.getBirthdate())){
-                    mUser.setBirthdate(mCalendar.getTime());
+                if(!mGroupName.getText().toString().trim().equals(mGroup.getName())){
+                    mGroup.setName(mGroupName.getText().toString().trim());
                     isModified = true;
                 }
                 if(mNewBitmap!=null) {
-                    mUser.setPictureImage(mNewBitmap);
+                    mGroup.setCoverImage(mNewBitmap);
                     isModified = true;
                 }
 
                 if(isModified){
-                    mUser.saveUser(new ServiceCallback<User>() {
+                    mGroup.saveGroup(new ServiceCallback<Group>() {
 
                         @Override
-                        public void doWithResult(User result) {
+                        public void doWithResult(Group result) {
                             setResult(EDIT_ACCOUNT_OKAY_RESULT_CODE);
                             finish();
                         }
@@ -152,10 +143,6 @@ public class EditAccountActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    //todo: handle error types properly
-                                    if(e.getCode()==202){ //username taken
-                                        mUsername.setError(getString(R.string.username_taken));
-                                    }
                                 }
                             });
                         }
@@ -184,7 +171,7 @@ public class EditAccountActivity extends AppCompatActivity {
                 @Override
                 public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                     mNewBitmap = bitmap;
-                    Picasso.with(EditAccountActivity.this).load(picturePath).fit().centerCrop().into(mProfilePic);
+                    Picasso.with(EditGroupActivity.this).load(picturePath).fit().centerCrop().into(mProfilePic);
                 }
 
                 @Override
@@ -203,10 +190,33 @@ public class EditAccountActivity extends AppCompatActivity {
 
     }
 
-    private void updateLabel() {
+    private void initGroup(final Group group){
+        mGroup = group;
+        dbService.getGroupUsers(mGroup, new ServiceCallback<List<User>>() {
+            @Override
+            public void doWithResult(List<User> result) {
+                mGroup.getUsers().addAll(result);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //TODO: add users to recycler
+                    }
+                });
+            }
 
-        DateFormat sdf = DateFormat.getDateInstance();
+            @Override
+            public void failed(DBException e) {
 
-        mBirthdate.setText(sdf.format(mCalendar.getTime()));
+            }
+        });
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mGroupName.setText(group.getName());
+                if (!mGroup.getCoverUrl().isEmpty())
+                    Picasso.with(EditGroupActivity.this).load(mGroup.getCoverUrl()).fit().centerCrop().into(mProfilePic);
+            }
+        });
+
     }
 }

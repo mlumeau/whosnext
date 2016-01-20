@@ -106,7 +106,6 @@ public class GroupDetailFragment extends Fragment {
                                 iv.setBackground(new ColorDrawable(ColorGenerator.MATERIAL.getColor(mItem.getName())));
                                 ActivityCompat.startPostponedEnterTransition(getActivity());
                             }
-                            ((TextView) rootView.findViewById(R.id.group_detail)).setText(mItem.getName());
                         }
                     });
 

@@ -17,6 +17,8 @@ public interface Group {
 
     String getName();
 
+    void setName(String name);
+
     String getCoverUrl();
 
     void setCoverImage(Bitmap bitmap);

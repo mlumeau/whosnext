@@ -28,6 +28,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/java/com/soprasteria/mdk/formation2/application/S2.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/java/com/soprasteria/mdk/formation2/dao/AbstractVirementDaoImpl.java">
           <value>
             <set />
@@ -48,7 +53,67 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/layout/gmainscreen__screen__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/layout/gpersonnepanel__flistitemvmpersonnepanelmesvirements__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/layout/gpersonnepanel__flistselvmpersonnepanelmesvirements__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/layout/gpersonnepanel__screendetail__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/layout/gs1__screendetail__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/layout/gs1detail__screendetail__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/layout/gvirementpanel__screendetail__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/layout/gvirementpanel__spinitemvmvirementpanelbeneficiaire__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/layout/gvirementpanel__spinselvmvirementpanelbeneficiaire__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/layout/gvirementpanel__spinselvmvirementpaneltitulaire__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/menu/s1_options.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/menu/s2_actions.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../temp/android/app/src/main/res/menu/s2_options.xml">
           <value>
             <set />
           </value>
@@ -98,7 +163,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/mobilefactory/whosnext/Edit1Activity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/mobilefactory/whosnext/EditAccountActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/mobilefactory/whosnext/EditGroupActivity.java">
           <value>
             <set />
           </value>
@@ -208,12 +283,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/mobilefactory/whosnext/view/GroupRecyclerViewAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/mobilefactory/whosnext/view/MLRoundedImageView.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/mobilefactory/whosnext/view/RoundedImageView.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/mobilefactory/whosnext/view/UserRecyclerViewAdapter.java">
           <value>
             <set />
           </value>
@@ -263,6 +348,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_group.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_group_detail.xml">
           <value>
             <set />
@@ -304,6 +394,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/fragment_group_list.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/group_detail.xml">
           <value>
             <set />
           </value>

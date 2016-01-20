@@ -56,8 +56,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SignInActivity" />
         </activity>
-        <activity android:name=".EditAccountActivity"
-            android:label="@string/edit_profile"
+        <activity android:name=".EditGroupActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
