@@ -8,6 +8,7 @@
 
 #import "LoginController.h"
 #import "UITextField+WhosNext.h"
+#import "UIImage+Resize.h"
 
 
 
@@ -80,26 +81,19 @@
 // Call this method somewhere in your view controller setup code.
 - (void)registerForKeyboardNotifications
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardDidShowNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillBeHidden:)
-                                                 name:UIKeyboardWillHideNotification object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {
     NSDictionary* info = [aNotification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
+    CGSize kbSize              = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
 
-    CGRect aRect = [UIScreen mainScreen].bounds;
-    CGFloat kbLevel = aRect.size.height - kbSize.height;
-    CGFloat textFieldBirthDateYLevel= self.textFieldBirthDate.frame.size.height + self.textFieldBirthDate.frame.origin.y;
+    CGRect aRect                     = [UIScreen mainScreen].bounds;
+    CGFloat kbLevel                  = aRect.size.height - kbSize.height;
+    CGFloat textFieldBirthDateYLevel = self.textFieldBirthDate.frame.size.height + self.textFieldBirthDate.frame.origin.y;
     
     if (kbLevel < textFieldBirthDateYLevel) {
         self.scrollView.contentInset = contentInsets;
@@ -203,8 +197,7 @@
 
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    [self.buttonPicture setBackgroundImage:info[UIImagePickerControllerOriginalImage] forState:UIControlStateNormal];
-    
+    [self setBackgroundImageOnButtonPictureWithImageFullSize:info[UIImagePickerControllerOriginalImage]];
     
     if(picker.sourceType == UIImagePickerControllerSourceTypeCamera){
         UIImageWriteToSavedPhotosAlbum(info[UIImagePickerControllerOriginalImage] , nil, nil, nil);
@@ -233,6 +226,11 @@
             constraint.constant = 10;
         }
     }
+}
+
+- (void)setBackgroundImageOnButtonPictureWithImageFullSize:(UIImage *)imageFullSize {
+    UIImage *imageCropped = [imageFullSize squareCropOnCenterImageToSideLength:self.buttonPicture.frame.size.height];
+    [self.buttonPicture setBackgroundImage:imageCropped forState:UIControlStateNormal];
 }
 
 @end

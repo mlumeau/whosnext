@@ -18,6 +18,7 @@
 		5608361E1C20376000D6E017 /* Who_s_NextTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5608361D1C20376000D6E017 /* Who_s_NextTests.m */; };
 		560836291C20376000D6E017 /* Who_s_NextUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 560836281C20376000D6E017 /* Who_s_NextUITests.m */; };
 		5608363B1C2038A500D6E017 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5608363A1C2038A500D6E017 /* LoginController.m */; };
+		5690F9791C4F99AB00D6BD7C /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 5690F9781C4F99AB00D6BD7C /* UIImage+Resize.m */; };
 		5695D0CC1C234F32003C3844 /* UIColor+WhosNext.m in Sources */ = {isa = PBXBuildFile; fileRef = 5695D0CB1C234F32003C3844 /* UIColor+WhosNext.m */; };
 		5695D0D11C235178003C3844 /* UITextField+WhosNext.m in Sources */ = {isa = PBXBuildFile; fileRef = 5695D0D01C235178003C3844 /* UITextField+WhosNext.m */; };
 		56D576C91C2309F6003DEE70 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D576C81C2309F6003DEE70 /* User.m */; };
@@ -64,6 +65,8 @@
 		5608362A1C20376000D6E017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		560836391C2038A500D6E017 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginController.h; path = classes/LoginController.h; sourceTree = "<group>"; };
 		5608363A1C2038A500D6E017 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginController.m; path = classes/LoginController.m; sourceTree = "<group>"; };
+		5690F9771C4F99AB00D6BD7C /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Resize.h"; path = "classes/UIImage+Resize.h"; sourceTree = "<group>"; };
+		5690F9781C4F99AB00D6BD7C /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Resize.m"; path = "classes/UIImage+Resize.m"; sourceTree = "<group>"; };
 		5695D0CA1C234F32003C3844 /* UIColor+WhosNext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+WhosNext.h"; path = "classes/UIColor+WhosNext.h"; sourceTree = "<group>"; };
 		5695D0CB1C234F32003C3844 /* UIColor+WhosNext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+WhosNext.m"; path = "classes/UIColor+WhosNext.m"; sourceTree = "<group>"; };
 		5695D0CF1C235178003C3844 /* UITextField+WhosNext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITextField+WhosNext.h"; path = "classes/UITextField+WhosNext.h"; sourceTree = "<group>"; };
@@ -216,9 +219,19 @@
 			name = "Login Controller";
 			sourceTree = "<group>";
 		};
+		5690F9731C4F995500D6BD7C /* image */ = {
+			isa = PBXGroup;
+			children = (
+				5690F9771C4F99AB00D6BD7C /* UIImage+Resize.h */,
+				5690F9781C4F99AB00D6BD7C /* UIImage+Resize.m */,
+			);
+			name = image;
+			sourceTree = "<group>";
+		};
 		5695D0C51C234D6A003C3844 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				5690F9731C4F995500D6BD7C /* image */,
 				5695D0C61C234D6F003C3844 /* Design */,
 			);
 			name = Misc;
@@ -535,6 +548,7 @@
 				2F699BFE1C2FFBE2003A386A /* ViewGroupController.m in Sources */,
 				560836051C20376000D6E017 /* main.m in Sources */,
 				5608363B1C2038A500D6E017 /* LoginController.m in Sources */,
+				5690F9791C4F99AB00D6BD7C /* UIImage+Resize.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
