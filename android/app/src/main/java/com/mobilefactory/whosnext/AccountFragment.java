@@ -59,7 +59,7 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getContext(), EditGroupActivity.class);
+                Intent intent = new Intent(getContext(), EditAccountActivity.class);
                 startActivityForResult(intent, EDIT_REQUEST_CODE);
             }
         });
