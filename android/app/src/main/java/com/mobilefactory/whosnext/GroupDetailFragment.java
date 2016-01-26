@@ -3,15 +3,18 @@ package com.mobilefactory.whosnext;
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.util.ColorGenerator;
@@ -20,6 +23,8 @@ import com.mobilefactory.whosnext.service.DBException;
 import com.mobilefactory.whosnext.service.DBService;
 import com.mobilefactory.whosnext.service.ServiceCallback;
 import com.mobilefactory.whosnext.service.parse.ParseService;
+import com.mobilefactory.whosnext.view.UserRecyclerViewAdapter;
+import com.mobilefactory.whosnext.view.WrappingRecyclerViewLayoutManager;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -41,6 +46,9 @@ public class GroupDetailFragment extends Fragment {
      * The content this fragment is presenting.
      */
     private Group mItem;
+    private ProgressBar progress;
+    private RecyclerView recyclerView;
+    private View rootView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -52,7 +60,10 @@ public class GroupDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.group_detail, container, false);
+        rootView = inflater.inflate(R.layout.group_detail, container, false);
+
+        progress = (ProgressBar) rootView.findViewById(R.id.progress);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.group_members);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
 
@@ -108,6 +119,7 @@ public class GroupDetailFragment extends Fragment {
                             }
                         }
                     });
+                    setupRecyclerView(result,recyclerView);
 
                 }
 
@@ -119,6 +131,41 @@ public class GroupDetailFragment extends Fragment {
         }
 
         return rootView;
+    }
+
+    private void setupRecyclerView(final Group group, @NonNull final RecyclerView recyclerView) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                recyclerView.setLayoutManager(new WrappingRecyclerViewLayoutManager(getContext()));
+                recyclerView.setAdapter(new UserRecyclerViewAdapter(GroupDetailFragment.this.getActivity()));
+            }
+        });
+        group.fetchUsers(new ServiceCallback<Group>() {
+            @Override
+            public void doWithResult(Group group) {
+                ((UserRecyclerViewAdapter) recyclerView.getAdapter()).setValues(group.getUsers());
+                changeIndeterminateProgress(false);
+            }
+
+            @Override
+            public void failed(DBException e) {
+                Log.e(dbService.getClass().getSimpleName(), "Failed to fetch users of group " + group.getId());
+                changeIndeterminateProgress(false);
+            }
+        });
+    }
+
+    private void changeIndeterminateProgress(final boolean inProgress) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (inProgress)
+                    progress.setVisibility(View.VISIBLE);
+                else
+                    progress.setVisibility(View.GONE);
+            }
+        });
     }
 
 }

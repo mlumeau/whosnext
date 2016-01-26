@@ -1,12 +1,7 @@
 package com.mobilefactory.whosnext.view;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +11,6 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.mobilefactory.whosnext.GroupDetailActivity;
-import com.mobilefactory.whosnext.GroupDetailFragment;
 import com.mobilefactory.whosnext.R;
 import com.mobilefactory.whosnext.model.User;
 import com.squareup.picasso.Picasso;
@@ -30,19 +23,17 @@ public class UserRecyclerViewAdapter
 
     private List<User> mValues;
     private Activity activity;
-    private boolean mTwoPane;
 
 
-    public UserRecyclerViewAdapter(Activity activity, boolean hasTwoPane) {
+    public UserRecyclerViewAdapter(Activity activity) {
         mValues = new ArrayList<>();
         this.activity = activity;
-        mTwoPane = hasTwoPane;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.group_list_content, parent, false);
+                .inflate(R.layout.list_content, parent, false);
         return new ViewHolder(view);
     }
 
@@ -63,29 +54,6 @@ public class UserRecyclerViewAdapter
                 .placeholder(placeholder)
                 .into(holder.mImageView);
 
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mTwoPane) {
-                    Bundle arguments = new Bundle();
-                    arguments.putString(GroupDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
-                    GroupDetailFragment fragment = new GroupDetailFragment();
-                    fragment.setArguments(arguments);
-                    ((FragmentActivity)activity).getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.group_detail_container, fragment)
-                            .commit();
-                } else {
-                    Context context = v.getContext();
-                    Intent intent = new Intent(context, GroupDetailActivity.class);
-                    intent.putExtra(GroupDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
-
-                    //scene transitions
-                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, holder.mImageView,activity.getString(R.string.group_image_transition_name));
-                    context.startActivity(intent,options.toBundle());
-                }
-            }
-        });
     }
 
     @Override

@@ -42,7 +42,7 @@ public class GroupRecyclerViewAdapter
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.group_list_content, parent, false);
+                .inflate(R.layout.list_content, parent, false);
         return new ViewHolder(view);
     }
 
@@ -81,7 +81,7 @@ public class GroupRecyclerViewAdapter
                     intent.putExtra(GroupDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
 
                     //scene transitions
-                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, holder.mImageView,activity.getString(R.string.group_image_transition_name));
+                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, holder.mImageView,activity.getString(R.string.image_transition_name));
                     context.startActivity(intent,options.toBundle());
                 }
             }

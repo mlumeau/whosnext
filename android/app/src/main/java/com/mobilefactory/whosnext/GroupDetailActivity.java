@@ -3,8 +3,6 @@ package com.mobilefactory.whosnext;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.transition.ChangeBounds;
 import android.transition.Transition;
 import android.view.MenuItem;
-import android.view.View;
-
-import com.mobilefactory.whosnext.utils.Animations;
 
 /**
  * An activity representing a single Group detail screen. This
@@ -23,8 +18,6 @@ import com.mobilefactory.whosnext.utils.Animations;
  * in a {@link GroupListFragment}.
  */
 public class GroupDetailActivity extends AppCompatActivity {
-
-    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,47 +36,6 @@ public class GroupDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
-
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
-                @Override
-                public void onTransitionStart(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionEnd(Transition transition) {
-                    Animations.reveal(fab,null);
-                }
-
-                @Override
-                public void onTransitionCancel(Transition transition) {
-                    Animations.reveal(fab,null);
-                }
-
-                @Override
-                public void onTransitionPause(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionResume(Transition transition) {
-
-                }
-            });
-
-        }else{
-            fab.setVisibility(View.VISIBLE);
-        }
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();

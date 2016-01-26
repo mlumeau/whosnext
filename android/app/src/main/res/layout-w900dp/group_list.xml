@@ -27,7 +27,7 @@
             app:layoutManager="LinearLayoutManager"
             android:paddingBottom="56dp"
             tools:context=".GroupListFragment"
-            tools:listitem="@layout/group_list_content" />
+            tools:listitem="@layout/list_content" />
 
         <LinearLayout
             android:layout_width="match_parent"

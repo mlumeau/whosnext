@@ -188,6 +188,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/widget/widget.android/app/src/main/res/raw/sqlitecreate_usermodel">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../mesnotesdefrais/android/app/src/main/res/values/dev__project__properties.xml">
           <value>
             <set />
@@ -473,12 +478,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/mobilefactory/whosnext/view/MyLinearLayoutManager.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/mobilefactory/whosnext/view/NestedRecyclerLinearLayoutManager.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/mobilefactory/whosnext/view/RoundedImageView.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/mobilefactory/whosnext/view/UserRecyclerViewAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/mobilefactory/whosnext/view/WrappingRecyclerViewLayoutManager.java">
           <value>
             <set />
           </value>
@@ -589,6 +609,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/group_list_content.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/list_content.xml">
           <value>
             <set />
           </value>

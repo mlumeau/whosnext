@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         app:layoutManager="LinearLayoutManager"
         tools:context=".GroupListFragment"
-        tools:listitem="@layout/group_list_content" />
+        tools:listitem="@layout/list_content" />
 
 </merge>
 
