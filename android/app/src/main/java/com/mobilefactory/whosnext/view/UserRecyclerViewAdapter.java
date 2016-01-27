@@ -90,4 +90,6 @@ public class UserRecyclerViewAdapter
             return super.toString() + " '" + mContentView.getText() + "'";
         }
     }
+
+
 }

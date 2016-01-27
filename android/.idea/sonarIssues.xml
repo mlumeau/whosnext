@@ -183,12 +183,177 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/binding/binding.android/app/src/androidTest/java/com/soprasteria/movalysmdk/it/binding/master_fxl/ui/application/MasterFixedListScreenTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/binding/binding.android/app/src/androidTest/java/com/soprasteria/movalysmdk/it/binding/master_linear/ui/application/MasterLinearScreenTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/binding/binding.android/app/src/androidTest/java/com/soprasteria/movalysmdk/it/binding/master_list2/ui/application/MasterList2ScreenTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/binding/binding.android/app/src/androidTest/java/com/soprasteria/movalysmdk/it/binding/master_list3/ui/application/MasterList3ScreenTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/binding/binding.android/app/src/androidTest/java/com/soprasteria/movalysmdk/it/binding/ui/application/RootScreenTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/binding/binding.android/app/src/main/res/layout/gmasterfixedlistpanel__screendetail__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/binding/binding.android/app/src/main/res/layout/gmasterlinearpanel__screendetail__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/binding/binding.android/app/src/main/res/raw/sqlitecreate_userdata">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/binding/binding.android/app/src/main/res/raw/sqlitecreate_usermodel">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/binding/binding.android/app/src/main/res/values/dev__project__labels.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../mdk-it/widget/widget.android/app/src/main/res/raw/sqlitecreate_userdata">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../../mdk-it/widget/widget.android/app/src/main/res/raw/sqlitecreate_usermodel">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/androidTest/java/com/soprasteria/movalysmdk/it/workspace/panellist2simple/ui/application/PanelList2SimpleScreenTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/androidTest/java/com/soprasteria/movalysmdk/it/workspace/panellistmultitab/ui/application/PanelListMultiTabScreenTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/androidTest/java/com/soprasteria/movalysmdk/it/workspace/panellistsimple/ui/application/PanelListSimpleScreenTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/androidTest/java/com/soprasteria/movalysmdk/it/workspace/workspacesimple/ui/application/WorkspaceSimpleScreenTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/java/com/soprasteria/movalysmdk/it/workspace/CustomApplication.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/res/layout/gcapitalpanel__screendetail__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/res/layout/gcitydetailpanel__screendetail__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/res/layout/gcitylistpanel__listitem1__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/res/layout/gcitylistpanel__screenlist1__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/res/layout/gcustomerlistpanel__listitem1__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/res/layout/ghistorycapitalpanel__screendetail__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/res/layout/gpanellistmultisection1panel__listitem1__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/res/layout/gpanellistmultisection2panel__listitem1__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/res/layout/gpanellistmultisection3panel__listitem1__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/res/layout/gpanellistmultitab1panel__listitem1__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/res/layout/gpanellistmultitab2panel__listitem1__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/res/layout/gpanellistmultitab3panel__listitem1__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/res/layout/gregionpanel__listitem1__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/res/layout/gregionpanel__listitem2__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/res/layout/gsupplierlistpanel__listitem1__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/res/layout/gsupplierlistpanel__screenlist1__master.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/workspace/workspace.android/app/src/main/res/layout/gzipcodepanel__screendetail__master.xml">
           <value>
             <set />
           </value>

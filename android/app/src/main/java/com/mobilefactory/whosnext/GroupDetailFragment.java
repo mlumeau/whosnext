@@ -3,7 +3,6 @@ package com.mobilefactory.whosnext;
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -119,7 +118,7 @@ public class GroupDetailFragment extends Fragment {
                             }
                         }
                     });
-                    setupRecyclerView(result,recyclerView);
+                    setupRecyclerView(result);
 
                 }
 
@@ -133,7 +132,7 @@ public class GroupDetailFragment extends Fragment {
         return rootView;
     }
 
-    private void setupRecyclerView(final Group group, @NonNull final RecyclerView recyclerView) {
+    private void setupRecyclerView(final Group group) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {

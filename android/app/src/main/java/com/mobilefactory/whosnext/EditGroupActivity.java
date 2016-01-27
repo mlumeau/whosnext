@@ -10,9 +10,11 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.mobilefactory.whosnext.model.Group;
@@ -22,6 +24,8 @@ import com.mobilefactory.whosnext.service.DBException;
 import com.mobilefactory.whosnext.service.DBService;
 import com.mobilefactory.whosnext.service.ServiceCallback;
 import com.mobilefactory.whosnext.service.parse.ParseService;
+import com.mobilefactory.whosnext.view.UserRecyclerViewAdapter;
+import com.mobilefactory.whosnext.view.WrappingRecyclerViewLayoutManager;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -41,7 +45,8 @@ public class EditGroupActivity extends AppCompatActivity {
     private boolean isModified = false;
     private Bitmap mNewBitmap;
     private View mAddMember;
-    private RecyclerView mMemberList;
+    private ProgressBar progress;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +61,10 @@ public class EditGroupActivity extends AppCompatActivity {
         mProfilePic = (ImageView) findViewById(R.id.edit_profile_pic);
         mGroupName = (EditText) findViewById(R.id.edit_groupname);
         mAddMember = findViewById(R.id.add_member);
-        mMemberList = (RecyclerView) findViewById(R.id.group_members);
+
+        progress = (ProgressBar) findViewById(R.id.progress);
+        recyclerView = (RecyclerView) findViewById(R.id.group_members);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         //Init existing group
@@ -75,6 +83,7 @@ public class EditGroupActivity extends AppCompatActivity {
             });
         }else{
             mGroup = new ParseGroup();
+            progress.setVisibility(View.GONE);
             this.setTitle(getString(R.string.create_group));
         }
 
@@ -199,7 +208,7 @@ public class EditGroupActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //TODO: add users to recycler
+                        setupRecyclerView(mGroup);
                     }
                 });
             }
@@ -218,5 +227,42 @@ public class EditGroupActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setupRecyclerView(final Group group) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                recyclerView.setLayoutManager(new WrappingRecyclerViewLayoutManager(EditGroupActivity.this));
+                recyclerView.setAdapter(new UserRecyclerViewAdapter(EditGroupActivity.this));
+            }
+        });
+        group.fetchUsers(new ServiceCallback<Group>() {
+            @Override
+            public void doWithResult(Group group) {
+                ((UserRecyclerViewAdapter) recyclerView.getAdapter()).setValues(group.getUsers());
+                changeIndeterminateProgress(false);
+            }
+
+            @Override
+            public void failed(DBException e) {
+                Log.e(dbService.getClass().getSimpleName(), "Failed to fetch users of group " + group.getId());
+                changeIndeterminateProgress(false);
+            }
+        });
+    }
+
+
+
+    private void changeIndeterminateProgress(final boolean inProgress) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (inProgress)
+                    progress.setVisibility(View.VISIBLE);
+                else
+                    progress.setVisibility(View.GONE);
+            }
+        });
     }
 }
