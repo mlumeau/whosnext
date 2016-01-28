@@ -43,4 +43,9 @@
     <string name="group_cover_picture">Group cover picture</string>
     <string name="edit_group">Edit a group</string>
     <string name="create_group">Create a group</string>
+    <string name="group_name_empty_error">Group name must not be empty.</string>
+    <string name="user_name_empty_error">Username must not be empty.</string>
+    <string name="birthdate_error">Birthdate must be past.</string>
+    <string name="group_users_saving_error">Error saving group users</string>
+    <string name="group_saving_error">Error trying to save group</string>
 </resources>

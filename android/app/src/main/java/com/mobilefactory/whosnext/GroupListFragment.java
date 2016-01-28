@@ -1,7 +1,6 @@
 package com.mobilefactory.whosnext;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -35,6 +34,7 @@ public class GroupListFragment extends Fragment {
      */
     private boolean mTwoPane;
     private ProgressBar progress;
+    private RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,9 +43,9 @@ public class GroupListFragment extends Fragment {
 
         progress = (ProgressBar) v.findViewById(R.id.progress);
 
-        View recyclerView = v.findViewById(R.id.group_list);
+        recyclerView = (RecyclerView) v.findViewById(R.id.group_list);
         assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
+        setupRecyclerView();
 
         if (v.findViewById(R.id.group_detail_container) != null) {
             // The detail container view will be present only in the
@@ -58,7 +58,7 @@ public class GroupListFragment extends Fragment {
         return v;
     }
 
-    private void setupRecyclerView(@NonNull final RecyclerView recyclerView) {
+    public void setupRecyclerView() {
 
         recyclerView.setAdapter(new GroupRecyclerViewAdapter(this.getActivity(), mTwoPane));
         dbService.getCurrentUser().fetchGroups(new ServiceCallback<User>() {

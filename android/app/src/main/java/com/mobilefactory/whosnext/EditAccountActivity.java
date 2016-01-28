@@ -21,18 +21,16 @@ import com.mobilefactory.whosnext.service.DBException;
 import com.mobilefactory.whosnext.service.DBService;
 import com.mobilefactory.whosnext.service.ServiceCallback;
 import com.mobilefactory.whosnext.service.parse.ParseService;
+import com.mobilefactory.whosnext.utils.Constants;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.io.File;
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class EditAccountActivity extends AppCompatActivity {
-
-    public static final int EDIT_ACCOUNT_OKAY_RESULT_CODE = 200;
-    public static final int EDIT_ACCOUNT_ABORT_RESULT_CODE = -1;
-    public static final int SELECT_PICTURE_REQUEST_CODE = 9000;
     private DBService dbService = ParseService.getInstance();
     private User mUser;
     private EditText mBirthdate;
@@ -118,51 +116,53 @@ public class EditAccountActivity extends AppCompatActivity {
                 Intent chooserIntent = Intent.createChooser(new Intent(), pickTitle);
                 chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{getIntent, pickIntent, captureIntent});
 
-                startActivityForResult(chooserIntent, SELECT_PICTURE_REQUEST_CODE);
+                startActivityForResult(chooserIntent, Constants.SELECT_PICTURE_REQUEST_CODE);
             }
         });
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mUsername.getText().toString().trim().equals(mUser.getUsername())){
-                    mUser.setUsername(mUsername.getText().toString().trim());
-                    isModified = true;
-                }
-                if(!mCalendar.getTime().equals(mUser.getBirthdate())){
-                    mUser.setBirthdate(mCalendar.getTime());
-                    isModified = true;
-                }
-                if(mNewBitmap!=null) {
-                    mUser.setPictureImage(mNewBitmap);
-                    isModified = true;
-                }
+                if(validateFields()) {
+                    if (!mUsername.getText().toString().trim().equals(mUser.getUsername())) {
+                        mUser.setUsername(mUsername.getText().toString().trim());
+                        isModified = true;
+                    }
+                    if (!mCalendar.getTime().equals(mUser.getBirthdate())) {
+                        mUser.setBirthdate(mCalendar.getTime());
+                        isModified = true;
+                    }
+                    if (mNewBitmap != null) {
+                        mUser.setPictureImage(mNewBitmap);
+                        isModified = true;
+                    }
 
-                if(isModified){
-                    mUser.saveUser(new ServiceCallback<User>() {
+                    if (isModified) {
+                        mUser.saveUser(new ServiceCallback<User>() {
 
-                        @Override
-                        public void doWithResult(User result) {
-                            setResult(EDIT_ACCOUNT_OKAY_RESULT_CODE);
-                            finish();
-                        }
+                            @Override
+                            public void doWithResult(User result) {
+                                setResult(Constants.EDIT_ACCOUNT_OKAY_RESULT_CODE);
+                                finish();
+                            }
 
-                        @Override
-                        public void failed(final DBException e) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //todo: handle error types properly
-                                    if(e.getCode()==202){ //username taken
-                                        mUsername.setError(getString(R.string.username_taken));
+                            @Override
+                            public void failed(final DBException e) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //todo: handle error types properly
+                                        if (e.getCode() == 202) { //username taken
+                                            mUsername.setError(getString(R.string.username_taken));
+                                        }
                                     }
-                                }
-                            });
-                        }
-                    });
-                }else{
-                    setResult(EDIT_ACCOUNT_ABORT_RESULT_CODE);
-                    finish();
+                                });
+                            }
+                        });
+                    } else {
+                        setResult(Constants.EDIT_ACCOUNT_ABORT_RESULT_CODE);
+                        finish();
+                    }
                 }
             }
         });
@@ -172,7 +172,7 @@ public class EditAccountActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == SELECT_PICTURE_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == Constants.SELECT_PICTURE_REQUEST_CODE && resultCode == RESULT_OK) {
             Uri path = outputFileUri; //camera
             if(data != null) { //pick
                 path = data.getData();
@@ -208,5 +208,20 @@ public class EditAccountActivity extends AppCompatActivity {
         DateFormat sdf = DateFormat.getDateInstance();
 
         mBirthdate.setText(sdf.format(mCalendar.getTime()));
+    }
+
+
+
+    private boolean validateFields(){
+        boolean valid = true;
+        if(mUsername.getText().toString().isEmpty()){
+            mUsername.setError(getString(R.string.user_name_empty_error));
+            valid=false;
+        }
+        if(mCalendar.getTime().compareTo(new Date())>0){
+            mBirthdate.setError(getString(R.string.birthdate_error));
+            valid=false;
+        }
+        return valid;
     }
 }

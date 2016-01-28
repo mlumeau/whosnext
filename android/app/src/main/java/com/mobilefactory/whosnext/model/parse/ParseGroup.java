@@ -95,7 +95,7 @@ public class ParseGroup extends ParseObject implements Group {
     @Override
     public void saveGroup(final ServiceCallback<Group> callback) {
 
-        saveEventually(new SaveCallback() {
+        saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e == null) {

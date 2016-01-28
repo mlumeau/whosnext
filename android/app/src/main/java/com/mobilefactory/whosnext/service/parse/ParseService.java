@@ -115,4 +115,24 @@ public class ParseService extends DBService {
         }).start();
 
     }
+
+    @Override
+    public void addGroupUsers(final List<User> users, final Group group, final ServiceCallback<Group> callback) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for(User user : users) {
+                        ParseObject relation = new ParseObject("User_Group");
+                        relation.put("group",group);
+                        relation.put("user",user);
+                        relation.save();
+                    }
+                    callback.doWithResult(group);
+                } catch (ParseException e) {
+                    callback.failed(new DBException(e.getCode(), e.getMessage()));
+                }
+            }
+        }).start();
+    }
 }

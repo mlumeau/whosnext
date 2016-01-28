@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.mobilefactory.whosnext.utils.Animations;
+import com.mobilefactory.whosnext.utils.Constants;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(MainActivity.this, EditGroupActivity.class));
+                    startActivityForResult(new Intent(MainActivity.this, EditGroupActivity.class), Constants.EDIT_GROUP_REQUEST_CODE);
                 }
             });
         }
@@ -148,6 +149,16 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Constants.EDIT_GROUP_REQUEST_CODE && resultCode == Constants.EDIT_GROUP_OKAY_RESULT_CODE) {
+            mSectionsPagerAdapter.groupListFragment.setupRecyclerView();
+        }
+
+    }
+
 
 
     /**
@@ -157,6 +168,9 @@ public class MainActivity extends AppCompatActivity {
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
 
+        DashboardFragment dashboardFragment;
+        GroupListFragment groupListFragment;
+        AccountFragment accountFragment;
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -168,11 +182,11 @@ public class MainActivity extends AppCompatActivity {
 
             switch (position) {
                 case 0:
-                    return new DashboardFragment();
+                    return dashboardFragment = new DashboardFragment();
                 case 1:
-                    return new GroupListFragment();
+                    return groupListFragment = new GroupListFragment();
                 case 2:
-                    return new AccountFragment();
+                    return accountFragment = new AccountFragment();
                 default:
                     return null;
             }

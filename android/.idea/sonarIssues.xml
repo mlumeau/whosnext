@@ -183,6 +183,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../mdk-it/a/emptyproject.android/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../mdk-it/binding/binding.android/app/src/androidTest/java/com/soprasteria/movalysmdk/it/binding/master_fxl/ui/application/MasterFixedListScreenTest.java">
           <value>
             <set />
@@ -624,6 +629,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/mobilefactory/whosnext/utils/Animations.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/mobilefactory/whosnext/utils/Constants.java">
           <value>
             <set />
           </value>

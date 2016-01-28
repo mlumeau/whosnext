@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.mobilefactory.whosnext.model.User;
 import com.mobilefactory.whosnext.service.DBService;
 import com.mobilefactory.whosnext.service.parse.ParseService;
+import com.mobilefactory.whosnext.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
@@ -24,7 +25,6 @@ import java.text.DateFormat;
 public class AccountFragment extends Fragment {
 
 
-    public static final int EDIT_REQUEST_CODE = 1000;
     DBService dbService = ParseService.getInstance();
     User mUser;
     private TextView mBirthdateView;
@@ -60,7 +60,7 @@ public class AccountFragment extends Fragment {
             public void onClick(View v) {
 
                 Intent intent = new Intent(getContext(), EditAccountActivity.class);
-                startActivityForResult(intent, EDIT_REQUEST_CODE);
+                startActivityForResult(intent, Constants.EDIT_ACCOUNT_REQUEST_CODE);
             }
         });
 
@@ -71,7 +71,7 @@ public class AccountFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==EDIT_REQUEST_CODE && resultCode== EditGroupActivity.EDIT_ACCOUNT_OKAY_RESULT_CODE){
+        if(requestCode== Constants.EDIT_ACCOUNT_REQUEST_CODE && resultCode== Constants.EDIT_ACCOUNT_OKAY_RESULT_CODE){
             mUsernameView.setText(mUser.getUsername());
             mBirthdateView.setText(DateFormat.getDateInstance().format(mUser.getBirthdate()));
             if(!mUser.getPictureUrl().isEmpty())

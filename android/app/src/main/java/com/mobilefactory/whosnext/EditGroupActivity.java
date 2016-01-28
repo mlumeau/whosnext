@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,6 +25,7 @@ import com.mobilefactory.whosnext.service.DBException;
 import com.mobilefactory.whosnext.service.DBService;
 import com.mobilefactory.whosnext.service.ServiceCallback;
 import com.mobilefactory.whosnext.service.parse.ParseService;
+import com.mobilefactory.whosnext.utils.Constants;
 import com.mobilefactory.whosnext.view.UserRecyclerViewAdapter;
 import com.mobilefactory.whosnext.view.WrappingRecyclerViewLayoutManager;
 import com.squareup.picasso.Picasso;
@@ -33,10 +35,6 @@ import java.io.File;
 import java.util.List;
 
 public class EditGroupActivity extends AppCompatActivity {
-
-    public static final int EDIT_ACCOUNT_OKAY_RESULT_CODE = 200;
-    public static final int EDIT_ACCOUNT_ABORT_RESULT_CODE = -1;
-    public static final int SELECT_PICTURE_REQUEST_CODE = 9000;
     private DBService dbService = ParseService.getInstance();
     private Group mGroup;
     private EditText mGroupName;
@@ -64,6 +62,8 @@ public class EditGroupActivity extends AppCompatActivity {
 
         progress = (ProgressBar) findViewById(R.id.progress);
         recyclerView = (RecyclerView) findViewById(R.id.group_members);
+        recyclerView.setLayoutManager(new WrappingRecyclerViewLayoutManager(EditGroupActivity.this));
+        recyclerView.setAdapter(new UserRecyclerViewAdapter(EditGroupActivity.this));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -82,8 +82,12 @@ public class EditGroupActivity extends AppCompatActivity {
                 }
             });
         }else{
-            mGroup = new ParseGroup();
             progress.setVisibility(View.GONE);
+
+            mGroup = new ParseGroup();
+            mGroup.getUsers().add(dbService.getCurrentUser());
+            ((UserRecyclerViewAdapter) recyclerView.getAdapter()).setValues(mGroup.getUsers());
+
             this.setTitle(getString(R.string.create_group));
         }
 
@@ -114,7 +118,7 @@ public class EditGroupActivity extends AppCompatActivity {
                 Intent chooserIntent = Intent.createChooser(new Intent(), pickTitle);
                 chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{getIntent, pickIntent, captureIntent});
 
-                startActivityForResult(chooserIntent, SELECT_PICTURE_REQUEST_CODE);
+                startActivityForResult(chooserIntent, Constants.SELECT_PICTURE_REQUEST_CODE);
             }
         });
 
@@ -129,36 +133,49 @@ public class EditGroupActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mGroupName.getText().toString().trim().equals(mGroup.getName())){
-                    mGroup.setName(mGroupName.getText().toString().trim());
-                    isModified = true;
-                }
-                if(mNewBitmap!=null) {
-                    mGroup.setCoverImage(mNewBitmap);
-                    isModified = true;
-                }
+                if(validateFields()) {
 
-                if(isModified){
-                    mGroup.saveGroup(new ServiceCallback<Group>() {
+                    if (!mGroupName.getText().toString().trim().equals(mGroup.getName())) {
+                        mGroup.setName(mGroupName.getText().toString().trim());
+                        isModified = true;
+                    }
+                    if (mNewBitmap != null) {
+                        mGroup.setCoverImage(mNewBitmap);
+                        isModified = true;
+                    }
 
-                        @Override
-                        public void doWithResult(Group result) {
-                            setResult(EDIT_ACCOUNT_OKAY_RESULT_CODE);
-                            finish();
-                        }
+                    if (isModified) {
+                        mGroup.saveGroup(new ServiceCallback<Group>() {
 
-                        @Override
-                        public void failed(final DBException e) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                }
-                            });
-                        }
-                    });
-                }else{
-                    setResult(EDIT_ACCOUNT_ABORT_RESULT_CODE);
-                    finish();
+                            @Override
+                            public void doWithResult(Group result) {
+
+                                dbService.addGroupUsers(mGroup.getUsers(), mGroup, new ServiceCallback<Group>() {
+                                    @Override
+                                    public void doWithResult(Group result) {
+                                        setResult(Constants.EDIT_GROUP_OKAY_RESULT_CODE);
+                                        finish();
+                                    }
+
+                                    @Override
+                                    public void failed(DBException e) {
+                                        Log.e(EditGroupActivity.this.getClass().getSimpleName(),getString(R.string.group_users_saving_error),e);
+                                        Snackbar.make(findViewById(android.R.id.content), R.string.group_users_saving_error, Snackbar.LENGTH_LONG).show();
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void failed(final DBException e) {
+                                Log.e(EditGroupActivity.this.getClass().getSimpleName(),getString(R.string.group_saving_error),e);
+                                Snackbar.make(findViewById(android.R.id.content), R.string.group_saving_error, Snackbar.LENGTH_LONG).show();
+                            }
+                        });
+
+                    } else {
+                        setResult(Constants.EDIT_GROUP_ABORT_RESULT_CODE);
+                        finish();
+                    }
                 }
             }
         });
@@ -168,7 +185,7 @@ public class EditGroupActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == SELECT_PICTURE_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == Constants.SELECT_PICTURE_REQUEST_CODE && resultCode == RESULT_OK) {
             Uri path = outputFileUri; //camera
             if(data != null) { //pick
                 path = data.getData();
@@ -230,13 +247,6 @@ public class EditGroupActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(final Group group) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                recyclerView.setLayoutManager(new WrappingRecyclerViewLayoutManager(EditGroupActivity.this));
-                recyclerView.setAdapter(new UserRecyclerViewAdapter(EditGroupActivity.this));
-            }
-        });
         group.fetchUsers(new ServiceCallback<Group>() {
             @Override
             public void doWithResult(Group group) {
@@ -264,5 +274,15 @@ public class EditGroupActivity extends AppCompatActivity {
                     progress.setVisibility(View.GONE);
             }
         });
+    }
+
+    private boolean validateFields(){
+        boolean valid = true;
+        if(mGroupName.getText().toString().isEmpty()){
+            mGroupName.setError(getString(R.string.group_name_empty_error));
+            valid=false;
+        }
+
+        return valid;
     }
 }

@@ -14,5 +14,6 @@ public abstract class DBService {
     abstract public void getGroup(String groupId, ServiceCallback<Group> callback);
     abstract public void getGroupUsers(Group group, ServiceCallback<List<User>> callback);
     abstract public void getUserGroups(User user, ServiceCallback<List<Group>> callback);
+    abstract public void addGroupUsers(List<User> users, Group group, ServiceCallback<Group> callback);
 
 }
