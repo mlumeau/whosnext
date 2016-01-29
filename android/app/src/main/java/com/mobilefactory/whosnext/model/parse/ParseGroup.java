@@ -28,10 +28,12 @@ public class ParseGroup extends ParseObject implements Group {
     private static final String KEY_COVER = "cover";
 
     private List<User> groupUsers;
+    private List<User> groupAdmins;
 
     public ParseGroup(){
         super();
         groupUsers = new ArrayList<>();
+        groupAdmins = new ArrayList<>();
     }
 
     @Override
@@ -87,6 +89,27 @@ public class ParseGroup extends ParseObject implements Group {
             @Override
             public void failed(DBException e) {
                 callback.failed(new DBException(e.getCode(),e.getMessage()));
+            }
+        });
+    }
+
+    @Override
+    public List<User> getAdmins() {
+        return groupAdmins;
+    }
+
+    @Override
+    public void fetchAdmins(final ServiceCallback<Group> callback) {
+        ParseService.getInstance().getGroupAdmins(this, new ServiceCallback<List<User>>() {
+            @Override
+            public void doWithResult(List<User> result) {
+                groupAdmins = result;
+                callback.doWithResult(ParseGroup.this);
+            }
+
+            @Override
+            public void failed(DBException e) {
+                callback.failed(new DBException(e.getCode(), e.getMessage()));
             }
         });
     }

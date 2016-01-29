@@ -26,4 +26,8 @@ public interface Group {
     List<User> getUsers();
 
     void fetchUsers(ServiceCallback<Group> callback);
+
+    List<User> getAdmins();
+
+    void fetchAdmins(ServiceCallback<Group> callback);
 }

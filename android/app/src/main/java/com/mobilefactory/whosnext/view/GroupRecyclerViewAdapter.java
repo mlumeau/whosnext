@@ -20,6 +20,7 @@ import com.mobilefactory.whosnext.GroupDetailActivity;
 import com.mobilefactory.whosnext.GroupDetailFragment;
 import com.mobilefactory.whosnext.R;
 import com.mobilefactory.whosnext.model.Group;
+import com.mobilefactory.whosnext.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class GroupRecyclerViewAdapter
             public void onClick(View v) {
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putString(GroupDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
+                    arguments.putString(Constants.ARG_ITEM_ID, holder.mItem.getId());
                     GroupDetailFragment fragment = new GroupDetailFragment();
                     fragment.setArguments(arguments);
                     ((FragmentActivity)activity).getSupportFragmentManager().beginTransaction()
@@ -78,7 +79,7 @@ public class GroupRecyclerViewAdapter
                 } else {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, GroupDetailActivity.class);
-                    intent.putExtra(GroupDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
+                    intent.putExtra(Constants.ARG_ITEM_ID, holder.mItem.getId());
 
                     //scene transitions
                     ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, holder.mImageView,activity.getString(R.string.image_transition_name));

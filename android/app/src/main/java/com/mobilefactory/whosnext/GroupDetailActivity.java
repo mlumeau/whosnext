@@ -11,6 +11,8 @@ import android.transition.ChangeBounds;
 import android.transition.Transition;
 import android.view.MenuItem;
 
+import com.mobilefactory.whosnext.utils.Constants;
+
 /**
  * An activity representing a single Group detail screen. This
  * activity is only used narrow width devices. On tablet-size devices,
@@ -56,8 +58,8 @@ public class GroupDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(GroupDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(GroupDetailFragment.ARG_ITEM_ID));
+            arguments.putString(Constants.ARG_ITEM_ID,
+                    getIntent().getStringExtra(Constants.ARG_ITEM_ID));
             GroupDetailFragment fragment = new GroupDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

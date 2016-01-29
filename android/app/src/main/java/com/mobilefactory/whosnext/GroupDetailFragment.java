@@ -1,9 +1,11 @@
 package com.mobilefactory.whosnext;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -18,10 +20,13 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.mobilefactory.whosnext.model.Group;
+import com.mobilefactory.whosnext.model.User;
 import com.mobilefactory.whosnext.service.DBException;
 import com.mobilefactory.whosnext.service.DBService;
 import com.mobilefactory.whosnext.service.ServiceCallback;
 import com.mobilefactory.whosnext.service.parse.ParseService;
+import com.mobilefactory.whosnext.utils.Animations;
+import com.mobilefactory.whosnext.utils.Constants;
 import com.mobilefactory.whosnext.view.UserRecyclerViewAdapter;
 import com.mobilefactory.whosnext.view.WrappingRecyclerViewLayoutManager;
 import com.squareup.picasso.Callback;
@@ -35,11 +40,7 @@ import com.squareup.picasso.Picasso;
  */
 public class GroupDetailFragment extends Fragment {
     DBService dbService = ParseService.getInstance();
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
-    public static final String ARG_ITEM_ID= "item_id";
+
 
     /**
      * The content this fragment is presenting.
@@ -64,11 +65,11 @@ public class GroupDetailFragment extends Fragment {
         progress = (ProgressBar) rootView.findViewById(R.id.progress);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.group_members);
 
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
+        if (getArguments().containsKey(Constants.ARG_ITEM_ID)) {
 
 
             //TODO: get from local datastore
-            dbService.getGroup(getArguments().getString(ARG_ITEM_ID), new ServiceCallback<Group>() {
+            dbService.getGroup(getArguments().getString(Constants.ARG_ITEM_ID), new ServiceCallback<Group>() {
                 @Override
                 public void doWithResult(final Group result) {
                     getActivity().runOnUiThread(new Runnable() {
@@ -116,20 +117,58 @@ public class GroupDetailFragment extends Fragment {
                                 iv.setBackground(new ColorDrawable(ColorGenerator.MATERIAL.getColor(mItem.getName())));
                                 ActivityCompat.startPostponedEnterTransition(getActivity());
                             }
+
+
+
+
                         }
                     });
                     setupRecyclerView(result);
+                    setupAdmin(result);
 
                 }
 
                 @Override
                 public void failed(DBException e) {
-                    Log.e("DBSERVICE", "Failed to retrieve group "+getArguments().getString(ARG_ITEM_ID));
+                    Log.e("DBSERVICE", "Failed to retrieve group "+getArguments().getString(Constants.ARG_ITEM_ID));
                 }
             });
         }
 
         return rootView;
+    }
+
+    private void setupAdmin(final Group group) {
+        group.fetchAdmins(new ServiceCallback<Group>() {
+            @Override
+            public void doWithResult(final Group result) {
+
+                for(User u : result.getAdmins()) {
+                    if (u.getId().equals(dbService.getCurrentUser().getId())){
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+                                fab.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent(getContext(), EditGroupActivity.class);
+                                        intent.putExtra(Constants.ARG_ITEM_ID,result.getId());
+                                        startActivityForResult(intent, Constants.EDIT_GROUP_REQUEST_CODE);
+                                    }
+                                });
+                                Animations.reveal(fab, null);
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void failed(DBException e) {
+                Log.e(dbService.getClass().getSimpleName(), "Failed to fetch admins of group " + group.getId());
+            }
+        });
     }
 
     private void setupRecyclerView(final Group group) {

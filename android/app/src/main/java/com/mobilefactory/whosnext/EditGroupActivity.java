@@ -68,9 +68,9 @@ public class EditGroupActivity extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         //Init existing group
-        if(getIntent().getStringExtra("groupId")!=null){
+        if(getIntent().getStringExtra(Constants.ARG_ITEM_ID)!=null){
             this.setTitle(getString(R.string.edit_group));
-            dbService.getGroup(getIntent().getStringExtra("groupId"), new ServiceCallback<Group>() {
+            dbService.getGroup(getIntent().getStringExtra(Constants.ARG_ITEM_ID), new ServiceCallback<Group>() {
                 @Override
                 public void doWithResult(Group result) {
                     initGroup(result);
@@ -86,6 +86,7 @@ public class EditGroupActivity extends AppCompatActivity {
 
             mGroup = new ParseGroup();
             mGroup.getUsers().add(dbService.getCurrentUser());
+            mGroup.getAdmins().add(dbService.getCurrentUser());
             ((UserRecyclerViewAdapter) recyclerView.getAdapter()).setValues(mGroup.getUsers());
 
             this.setTitle(getString(R.string.create_group));
@@ -153,8 +154,19 @@ public class EditGroupActivity extends AppCompatActivity {
                                 dbService.addGroupUsers(mGroup.getUsers(), mGroup, new ServiceCallback<Group>() {
                                     @Override
                                     public void doWithResult(Group result) {
-                                        setResult(Constants.EDIT_GROUP_OKAY_RESULT_CODE);
-                                        finish();
+                                        dbService.addGroupAdmins(mGroup.getAdmins(), mGroup, new ServiceCallback<Group>() {
+                                            @Override
+                                            public void doWithResult(Group result) {
+                                                setResult(Constants.EDIT_GROUP_OKAY_RESULT_CODE);
+                                                finish();
+                                            }
+
+                                            @Override
+                                            public void failed(DBException e) {
+                                                Log.e(EditGroupActivity.this.getClass().getSimpleName(),getString(R.string.group_admins_saving_error),e);
+                                                Snackbar.make(findViewById(android.R.id.content), R.string.group_admins_saving_error, Snackbar.LENGTH_LONG).show();
+                                            }
+                                        });
                                     }
 
                                     @Override

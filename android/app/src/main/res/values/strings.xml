@@ -47,5 +47,6 @@
     <string name="user_name_empty_error">Username must not be empty.</string>
     <string name="birthdate_error">Birthdate must be past.</string>
     <string name="group_users_saving_error">Error saving group users</string>
+    <string name="group_admins_saving_error">Error saving group admins</string>
     <string name="group_saving_error">Error trying to save group</string>
 </resources>

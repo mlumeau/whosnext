@@ -94,6 +94,28 @@ public class ParseService extends DBService {
     }
 
     @Override
+    public void getGroupAdmins(final Group group, final ServiceCallback<List<User>> callback) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("Admin_Group");
+                query.whereEqualTo("group", group);
+                try {
+                    List<ParseObject> relations = query.find();
+                    List<User> users = new ArrayList<>();
+                    for (ParseObject po : relations) {
+                        users.add((User) po.getParseObject("user").fetchIfNeeded());
+                    }
+                    callback.doWithResult(users);
+                }catch (ParseException e){
+                    Log.d("PARSE", "Unable to retrieve admins from group" + group.getId(), e);
+                    callback.failed(new DBException(e.getCode(),e.getMessage()));
+                }
+            }
+        }).start();
+    }
+
+    @Override
     public void getUserGroups(final User user, final ServiceCallback<List<Group>> callback) {
         new Thread(new Runnable() {
             @Override
@@ -124,6 +146,26 @@ public class ParseService extends DBService {
                 try {
                     for(User user : users) {
                         ParseObject relation = new ParseObject("User_Group");
+                        relation.put("group",group);
+                        relation.put("user",user);
+                        relation.save();
+                    }
+                    callback.doWithResult(group);
+                } catch (ParseException e) {
+                    callback.failed(new DBException(e.getCode(), e.getMessage()));
+                }
+            }
+        }).start();
+    }
+
+    @Override
+    public void addGroupAdmins(final List<User> users, final Group group, final ServiceCallback<Group> callback) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for(User user : users) {
+                        ParseObject relation = new ParseObject("Admin_Group");
                         relation.put("group",group);
                         relation.put("user",user);
                         relation.save();
