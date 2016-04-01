@@ -1,4 +1,4 @@
-angular.module('starter').controller('LoginCtrl', function($scope, $state, $cordovaFacebook, $timeout, $ionicLoading) {
+angular.module('starter').controller('LoginCtrl', function($scope, $state, $cordovaFacebook, $timeout, $ionicLoading, Auth) {
 
   $scope.data = {};
 
@@ -123,7 +123,11 @@ angular.module('starter').controller('LoginCtrl', function($scope, $state, $cord
     });
   };
 
-  $scope.loginFacebook = function(){
+  $scope.loginFacebook = function() {
+    Auth.$authWithOAuthRedirect("facebook");
+  };
+
+  $scope.loginFaceboo = function(){
 
     //Browser Login
     if(!(ionic.Platform.isIOS() || ionic.Platform.isAndroid())){
@@ -202,10 +206,10 @@ angular.module('starter').controller('LoginCtrl', function($scope, $state, $cord
 
         parseFile.save().then(function() {
           console.log("file has been save in Parse");
-// The file has been saved to Parse.
+          // The file has been saved to Parse.
         }, function(error) {
           console.log("Error when saving file in Parse");
-// The file either could not be read, or could not be saved to Parse.
+          // The file either could not be read, or could not be saved to Parse.
         });
 
         user.set("username", $scope.data.username);
@@ -227,16 +231,6 @@ angular.module('starter').controller('LoginCtrl', function($scope, $state, $cord
             alert("Error: " + error.code + " " + error.message);
           }
         });
-
-        //UserService.setUser({
-        //  userID: user_data.userId,
-        //  name: user_data.displayName,
-        //  email: user_data.email,
-        //  picture: user_data.imageUrl,
-        //  accessToken: user_data.accessToken,
-        //  idToken: user_data.idToken
-        //});
-
 
       },
       function (msg) {

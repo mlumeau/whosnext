@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'ionic-datepicker'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'ionic-datepicker', 'firebase'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -22,26 +22,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
 
 
-    Parse.initialize('APPLICATION_ID', 'JAVASCRIPT_KEY');
+    //Parse.initialize('APPLICATION_ID', 'JAVASCRIPT_KEY');
 
-    if(!(ionic.Platform.isIOS() || ionic.Platform.isAndroid())){
-      window.fbAsyncInit = function() {
-        Parse.FacebookUtils.init({
-          appId      : 'FACEBOOK_APP_ID',
-          version    : 'v2.5',
-          status     : true,  // check Facebook Login status
-          xfbml      : true
-        });
-      };
-
-      (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-    }
+    //if(!(ionic.Platform.isIOS() || ionic.Platform.isAndroid())){
+    //  window.fbAsyncInit = function() {
+    //    Parse.FacebookUtils.init({
+    //      appId      : 'FACEBOOK_APP_ID',
+    //      version    : 'v2.5',
+    //      status     : true,  // check Facebook Login status
+    //      xfbml      : true
+    //    });
+    //  };
+    //
+    //  (function(d, s, id){
+    //    var js, fjs = d.getElementsByTagName(s)[0];
+    //    if (d.getElementById(id)) {return;}
+    //    js = d.createElement(s); js.id = id;
+    //    js.src = "//connect.facebook.net/en_US/sdk.js";
+    //    fjs.parentNode.insertBefore(js, fjs);
+    //  }(document, 'script', 'facebook-jssdk'));
+    //}
   });
 })
 
