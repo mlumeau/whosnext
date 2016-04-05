@@ -1,9 +1,10 @@
 angular.module('starter').controller('GroupListCtrl', function ($scope, $state, $ionicPopup) {
 
+  var vm = this;
 
   $scope.$on('$ionicView.beforeEnter', function() {
 
-    $scope.groupList = [
+    vm.List = [
       {
         "name": "Croissant",
         "type": "classic"
@@ -15,24 +16,24 @@ angular.module('starter').controller('GroupListCtrl', function ($scope, $state, 
   });
 
 
- $scope.deleteGroup = function(item){
+ vm.deleteGroup = function(item){
 
  },
 
-  $scope.shouldShowDelete = false;
+  vm.shouldShowDelete = false;
 
-  $scope.showDelete = function(){
-    $scope.shouldShowDelete = !$scope.shouldShowDelete;
+  vm.showDelete = function(){
+    vm.shouldShowDelete = !vm.shouldShowDelete;
   };
 
-  $scope.showPopupGroupCreate = function() {
-    $scope.data = {}
+  vm.showPopupGroupCreate = function() {
+    vm.data = {}
 
     // An elaborate, custom popup
     var myPopup = $ionicPopup.show({
       templateUrl: "templates/groupAdd.html",
       title: 'Create a new group',
-      scope: $scope,
+      scope: vm,
       cssClass: 'GroupCreate',
       buttons: [
         { text: 'Cancel',
@@ -42,11 +43,11 @@ angular.module('starter').controller('GroupListCtrl', function ($scope, $state, 
           text: '<b>Create</b>',
           type: 'button-positive',
           onTap: function(e) {
-            if (!$scope.data.date && !$scope.data.name) {
+            if (!vm.data.date && !vm.data.name) {
               //don't allow the user to close unless he enters wifi password
               e.preventDefault();
             } else {
-              return $scope.data;
+              return vm.data;
             }
           }
         },
@@ -62,7 +63,7 @@ angular.module('starter').controller('GroupListCtrl', function ($scope, $state, 
 
   };
 
-  $scope.getCurrentUser = function(){
+  vm.getCurrentUser = function(){
   };
 
 

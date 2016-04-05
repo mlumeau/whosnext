@@ -21,27 +21,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       StatusBar.styleLightContent();
     }
 
-
-    //Parse.initialize('APPLICATION_ID', 'JAVASCRIPT_KEY');
-
-    //if(!(ionic.Platform.isIOS() || ionic.Platform.isAndroid())){
-    //  window.fbAsyncInit = function() {
-    //    Parse.FacebookUtils.init({
-    //      appId      : 'FACEBOOK_APP_ID',
-    //      version    : 'v2.5',
-    //      status     : true,  // check Facebook Login status
-    //      xfbml      : true
-    //    });
-    //  };
-    //
-    //  (function(d, s, id){
-    //    var js, fjs = d.getElementsByTagName(s)[0];
-    //    if (d.getElementById(id)) {return;}
-    //    js = d.createElement(s); js.id = id;
-    //    js.src = "//connect.facebook.net/en_US/sdk.js";
-    //    fjs.parentNode.insertBefore(js, fjs);
-    //  }(document, 'script', 'facebook-jssdk'));
-    //}
   });
 })
 
@@ -56,22 +35,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     .state('login', {
       url: '/',
       templateUrl: 'templates/login.html',
-      controller: 'LoginCtrl'
+      controller: 'LoginCtrl',
+      controllerAs: 'login'
     })
     .state('groupList', {
       url: '/group',
       templateUrl: 'templates/groupList.html',
-      controller: 'GroupListCtrl'
+      controller: 'GroupListCtrl',
+      controllerAs: 'groupList'
     })
     .state('groupAdd', {
       url: '/groupAdd',
       templateUrl: 'templates/groupAdd.html',
-      controller: 'GroupAddCtrl'
+      controller: 'GroupAddCtrl',
+      controllerAs: 'groupAdd'
     })
     .state('main', {
       url: '/main/:groupId',
       templateUrl: 'templates/main.html',
-      controller: 'MainCtrl'
+      controller: 'MainCtrl',
+      controllerAs: 'maint'
     });
 
   $urlRouterProvider.otherwise("/");

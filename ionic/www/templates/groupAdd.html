@@ -2,17 +2,17 @@
   <ion-list>
     <label class="item item-input">
       <span class="input-label group-label">Group Name</span>
-      <input type="text" placeholder="enter the group name..." ng-model="data.name">
+      <input type="text" placeholder="enter the group name..." ng-model="groupAdd.data.name">
     </label>
     <label class="item item-input">
       <span class="input-label group-label">First run date</span>
-      <input type="datetime-local" ng-model="data.date">
+      <input type="datetime-local" ng-model="groupAdd.data.date">
     </label>
     <label class="item item-input item-select">
       <div class="input-label group-label">
         Frequency
       </div>
-      <select ng-model="data.frequency">
+      <select ng-model="groupAdd.data.frequency">
         <option>Daily</option>
         <option selected>Weekly</option>
         <option>Monthly</option>

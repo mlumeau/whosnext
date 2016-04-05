@@ -334,6 +334,19 @@ button.ion-plus-circled::before {
   animation-duration:3s;
 }
 
+.iconLogin {
+  width:50px;
+  height:50px;
+  margin-left: 25px;
+}
+
+.containerIconLogin {
+  margin-top: 50px;
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 
 

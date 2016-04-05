@@ -1,20 +1,20 @@
 <ion-view title="Groups">
   <ion-nav-buttons side="primary">
-    <button class="button button-icon icon ion-ios-minus-outline" ng-click="showDelete()">
+    <button class="button button-icon icon ion-ios-minus-outline" ng-click="groupList.showDelete()">
     </button>
   </ion-nav-buttons>
 
   <ion-content class="animate-in-primary">
 
     <ion-list show-delete="shouldShowDelete">
-      <ion-item collection-repeat="item in groupList" class="item-remove-animate item-avatar item-icon-right list-grow-animation" href="#/main/{{item.id}}">
+      <ion-item collection-repeat="item in groupList.List" class="item-remove-animate item-avatar item-icon-right list-grow-animation" href="#/main/{{item.id}}">
         <img ng-class="animate-in-primary" src="img/facebook.png">
 
         <h2 style="margin-left: 30px">{{item.name}}</h2>
 
         <p class="animate-in-secondary" style="margin-left: 30px">Next Date :  {{item.nextDate | date:'dd/MM/yyyy @ h:mma'}}</p>
         <ion-option-button class="button-assertive" ng-click="deleteGroup(item)">DELETE</ion-option-button>
-        <ion-delete-button class="ion-minus-circled" ng-click="groupList.splice($index, 1)">
+        <ion-delete-button class="ion-minus-circled" ng-click="groupList.List.splice($index, 1)">
         </ion-delete-button>
 
       </ion-item>
@@ -22,7 +22,7 @@
 
   </ion-content>
 
-  <div class="float-button" ng-click="showPopupGroupCreate()">
+  <div class="float-button" ng-click="groupList.showPopupGroupCreate()">
   <span class="height-fix">
     <a class="content">
       <i class="ion-plus-round"> </i>
