@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using UIKit;
 
 using whosnext.Core.Services;
+using whosnext.Core.Services.Interfaces;
+using whosnext.Utils;
 
 namespace whosnext.iOS
 {
@@ -28,14 +30,18 @@ namespace whosnext.iOS
 
 		public async void LoginAction(object sender, EventArgs e){
 			if (LoginTextField.Text.Length <= 0 || PasswordTextField.Text.Length <= 0){
-				Console.WriteLine("Login and Password fields are required");
+				Log.error("Login", "Login and Password fields are required");
 				return;
 			}
 
 			bool isLogged = await ((ILoginService) ServiceProvider.Get("login")).BasicAuthAsync(LoginTextField.Text, PasswordTextField.Text);
 
-			if (isLogged) {
-				this.PerformSegue ("loginToHomeSegue", this);
+			if (isLogged)
+			{
+				this.PerformSegue("loginToHomeSegue", this);
+			}
+			else {
+				Log.error("Login", "Error while loging in");
 			}
 		}
 

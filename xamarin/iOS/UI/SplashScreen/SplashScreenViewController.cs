@@ -6,6 +6,7 @@ using UIKit;
 
 using whosnext.Core;
 using whosnext.Core.Services;
+using whosnext.Core.Services.Interfaces;
 
 namespace whosnext.iOS
 {
@@ -20,8 +21,8 @@ namespace whosnext.iOS
 		{
 			base.ViewDidAppear (animated);
 
-			await WNRuntime.Init ();
 
+			await WNRuntime.Init ();
 
 
 			bool logged = await ( (ILoginService) ServiceProvider.Get ("login")).isLoggedAsync ();
