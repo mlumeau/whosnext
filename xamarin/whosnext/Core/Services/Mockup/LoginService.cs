@@ -2,9 +2,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace whosnext.Core.Services
+using whosnext.Core.Services.Interfaces;
+
+namespace whosnext.Core.Services.Mockup
 {
-	public class LoginService : ILoginService
+	public class LoginService : Service, ILoginService
 	{
 		
 		public async Task<bool> isLoggedAsync(){

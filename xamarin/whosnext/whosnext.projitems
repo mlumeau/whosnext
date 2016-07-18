@@ -10,18 +10,28 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Core\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Core\Data\" />
     <Folder Include="$(MSBuildThisFileDirectory)Core\Services\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Core\Data\DAL\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Core\Data\DAO\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Core\Data\Model\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Core\Data\Model\Factories\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Core\Data\WSAL\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Core\Services\Mockup\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Core\Services\Firebase\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Core\Services\Interfaces\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Core\Services\Exceptions\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Core\Model\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Core\Services\Firebase\Model\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Utils\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Core\WNRuntime.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Services\ILoginService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Services\ServiceProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Services\LoginService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Services\Mockup\LoginService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Services\Interfaces\ILoginService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Services\Interfaces\IInitService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Services\Mockup\InitService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Services\Exceptions\InvalidServiceException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Services\Firebase\ClientManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Services\Firebase\InitService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Services\Firebase\LoginService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Services\Service.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Services\Firebase\Model\User.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\Log.cs" />
   </ItemGroup>
 </Project>

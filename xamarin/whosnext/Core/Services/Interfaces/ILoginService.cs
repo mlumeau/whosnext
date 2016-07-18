@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace whosnext.Core.Services
+namespace whosnext.Core.Services.Interfaces
 {
 	public interface ILoginService
 	{
